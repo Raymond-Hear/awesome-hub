@@ -1,187 +1,73 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome Hub - 精选开源资源榜单</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .star-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-    </style>
+  <meta charset="UTF-8">
+  <title>Awesome Hub - 精选开源资源</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="精选 GitHub 开源资源榜单">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    :root {
+      --theme-color: #42b983;
+    }
+    .markdown-section {
+      max-width: 900px;
+    }
+    .markdown-section h1 {
+      font-size: 2.5rem;
+      border-bottom: none;
+    }
+    .markdown-section h2 {
+      font-size: 1.8rem;
+      margin-top: 3rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eaecef;
+    }
+    .markdown-section h3 {
+      font-size: 1.3rem;
+      margin-top: 2rem;
+    }
+    .markdown-section p {
+      line-height: 1.8;
+    }
+    .markdown-section a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    .markdown-section a:hover {
+      text-decoration: underline;
+    }
+    .github-corner svg {
+      fill: #42b983;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <div class="inline-flex items-center gap-3 mb-4">
-                <span class="text-6xl">😎</span>
-                <h1 class="text-5xl font-bold gradient-text">Awesome Hub</h1>
-            </div>
-            <p class="text-gray-400 text-lg mb-6">精选 GitHub Awesome 资源榜单 · 每日自动更新</p>
-            
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-                    <div class="text-3xl font-bold text-yellow-400" id="totalRepos">0</div>
-                    <div class="text-gray-400 text-sm">收录仓库</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-                    <div class="text-3xl font-bold text-pink-400" id="totalStars">0</div>
-                    <div class="text-gray-400 text-sm">总 Star 数</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-                    <div class="text-3xl font-bold text-cyan-400" id="totalCategories">0</div>
-                    <div class="text-gray-400 text-sm">分类数量</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-                    <div class="text-3xl font-bold text-green-400" id="topRepo">-</div>
-                    <div class="text-gray-400 text-sm">榜首项目</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Charts -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-            <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-                <h3 class="text-lg font-semibold mb-4">📊 各分类仓库数量</h3>
-                <canvas id="categoryChart"></canvas>
-            </div>
-            <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-                <h3 class="text-lg font-semibold mb-4">⭐ Star 分布 TOP 10</h3>
-                <canvas id="starsChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Categories -->
-        <div id="categories" class="space-y-8">
-            <!-- Categories will be loaded here -->
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-16 text-center text-gray-500 text-sm">
-            <p>😎 Awesome Hub · 数据来源 GitHub API · 最后更新: <span id="updateTime"></span></p>
-            <p class="mt-2">Made with ❤️ by OpenClaw Agent</p>
-        </footer>
-    </div>
-
-    <script>
-        // Load data
-        fetch('data.json')
-            .then(r => r.json())
-            .then(data => {
-                renderDashboard(data);
-            });
-
-        function renderDashboard(data) {
-            const categories = data.categories;
-            
-            // Calculate stats
-            let totalRepos = 0;
-            let totalStars = 0;
-            let maxStars = 0;
-            let topRepoName = '-';
-            const allRepos = [];
-            
-            categories.forEach(cat => {
-                totalRepos += cat.repos.length;
-                cat.repos.forEach(repo => {
-                    totalStars += repo.stars;
-                    allRepos.push(repo);
-                    if (repo.stars > maxStars) {
-                        maxStars = repo.stars;
-                        topRepoName = repo.name.split('/')[1];
-                    }
-                });
-            });
-            
-            // Update stats
-            document.getElementById('totalRepos').textContent = totalRepos;
-            document.getElementById('totalStars').textContent = (totalStars / 1000000).toFixed(1) + 'M';
-            document.getElementById('totalCategories').textContent = categories.length;
-            document.getElementById('topRepo').textContent = topRepoName;
-            document.getElementById('updateTime').textContent = new Date().toLocaleDateString('zh-CN');
-            
-            // Render categories
-            const container = document.getElementById('categories');
-            categories.forEach((cat, idx) => {
-                const colors = ['from-blue-500/20 to-cyan-500/20', 'from-purple-500/20 to-pink-500/20', 'from-green-500/20 to-emerald-500/20', 'from-orange-500/20 to-red-500/20', 'from-yellow-500/20 to-amber-500/20'];
-                const color = colors[idx % colors.length];
-                
-                const section = document.createElement('div');
-                section.className = 'bg-gradient-to-r ' + color + ' backdrop-blur-lg rounded-2xl p-6 border border-white/10';
-                section.innerHTML = `
-                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-                        <span class="bg-white/20 px-3 py-1 rounded-lg text-sm">${cat.repos.length}</span>
-                        ${cat.name}
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        ${cat.repos.map(repo => `
-                            <a href="${repo.url}" target="_blank" class="card-hover bg-white/10 rounded-xl p-4 border border-white/10 block">
-                                <div class="flex items-start justify-between mb-2">
-                                    <h3 class="font-semibold text-white truncate">${repo.name}</h3>
-                                    <span class="star-pulse text-yellow-400 text-sm">⭐ ${(repo.stars / 1000).toFixed(1)}k</span>
-                                </div>
-                                <p class="text-gray-400 text-sm line-clamp-2">${repo.desc}</p>
-                            </a>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(section);
-            });
-            
-            // Charts
-            renderCharts(categories, allRepos);
-        }
-
-        function renderCharts(categories, allRepos) {
-            // Category chart
-            const ctx1 = document.getElementById('categoryChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'doughnut',
-                data: {
-                    labels: categories.map(c => c.name),
-                    datasets: [{
-                        data: categories.map(c => c.repos.length),
-                        backgroundColor: ['#60a5fa', '#a78bfa', '#34d399', '#fb923c', '#fbbf24', '#f87171', '#22d3ee']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { position: 'right', labels: { color: '#fff' } } }
-                }
-            });
-            
-            // Stars chart
-            const top10 = allRepos.sort((a, b) => b.stars - a.stars).slice(0, 10);
-            const ctx2 = document.getElementById('starsChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: top10.map(r => r.name.split('/')[1]),
-                    datasets: [{
-                        label: 'Stars',
-                        data: top10.map(r => r.stars),
-                        backgroundColor: '#fbbf24'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { color: '#fff' }, grid: { color: '#ffffff20' } },
-                        y: { ticks: { color: '#fff' }, grid: { color: '#ffffff20' } }
-                    }
-                }
-            });
-        }
-    </script>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'Awesome Hub',
+      repo: 'https://github.com/Raymond-Hear/awesome-hub',
+      loadSidebar: false,
+      subMaxLevel: 2,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索...',
+        noData: '未找到结果',
+        depth: 2
+      },
+      copyCode: {
+        buttonText: '复制',
+        errorText: '失败',
+        successText: '已复制'
+      }
+    };
+  </script>
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
 </body>
 </html>
