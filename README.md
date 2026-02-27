@@ -1,112 +1,162 @@
 # Awesome Hub
 
-> 😎 精选 GitHub 开源资源榜单
+> 😎 精选 Awesome 列表集合
 
-## 目录
-
-- [AI / 机器学习](#ai--机器学习)
-- [前端开发](#前端开发)
-- [后端开发](#后端开发)
-- [工具与效率](#工具与效率)
-- [学习资源](#学习资源)
+一个 curated 的 awesome 列表导航站，收录 GitHub 上最受欢迎的 awesome 资源列表。
 
 ---
 
-## AI / 机器学习
+## 编程语言
 
-### [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow)
-An Open Source Machine Learning Framework for Everyone  
-⭐ 187k stars | Python
+### [awesome-python](https://github.com/vinta/awesome-python)
+精选的 Python 框架、库、软件和资源列表  
+⭐ 236k+ stars
 
-### [pytorch/pytorch](https://github.com/pytorch/pytorch)
-Tensors and Dynamic neural networks in Python with strong GPU acceleration  
-⭐ 88k stars | Python
+### [awesome-javascript](https://github.com/sorrycc/awesome-javascript)
+精选的 JavaScript 库和资源集合  
+⭐ 35k+ stars
 
-### [huggingface/transformers](https://github.com/huggingface/transformers)
-🤗 Transformers: State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX  
-⭐ 140k stars | Python
+### [awesome-go](https://github.com/avelino/awesome-go)
+精选的 Go 框架、库和软件  
+⭐ 142k+ stars
 
-### [microsoft/DeepSpeed](https://github.com/microsoft/DeepSpeed)
-DeepSpeed is a deep learning optimization library that makes distributed training and inference easy, efficient, and effective  
-⭐ 37k stars | Python
+### [awesome-rust](https://github.com/rust-unofficial/awesome-rust)
+精选的 Rust 代码和资源  
+⭐ 49k+ stars
 
-### [comfyanonymous/ComfyUI](https://github.com/comfyanonymous/ComfyUI)
-The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface  
-⭐ 64k stars | Python
+### [awesome-cpp](https://github.com/fffaraz/awesome-cpp)
+精选的 C++ 框架、库和资源  
+⭐ 62k+ stars
 
 ---
 
 ## 前端开发
 
-### [facebook/react](https://github.com/facebook/react)
-A declarative, efficient, and flexible JavaScript library for building user interfaces  
-⭐ 231k stars | JavaScript
+### [awesome-react](https://github.com/enaqx/awesome-react)
+精选的 React 生态资源  
+⭐ 65k+ stars
 
-### [vuejs/vue](https://github.com/vuejs/vue)
-This is the repo for Vue 2. For Vue 3, go to https://github.com/vuejs/core  
-⭐ 208k stars | TypeScript
+### [awesome-vue](https://github.com/vuejs/awesome-vue)
+精选的 Vue.js 资源  
+⭐ 70k+ stars
 
-### [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
-A utility-first CSS framework for rapid UI development  
-⭐ 85k stars | TypeScript
+### [awesome-css](https://github.com/awesome-css-group/awesome-css)
+精选的 CSS 资源  
+⭐ 12k+ stars
 
-### [vercel/next.js](https://github.com/vercel/next.js)
-The React Framework for the Web  
-⭐ 127k stars | JavaScript
-
----
-
-## 后端开发
-
-### [nodejs/node](https://github.com/nodejs/node)
-Node.js JavaScript runtime ✨🐢🚀✨  
-⭐ 109k stars | JavaScript
-
-### [django/django](https://github.com/django/django)
-The Web framework for perfectionists with deadlines  
-⭐ 82k stars | Python
-
-### [gin-gonic/gin](https://github.com/gin-gonic/gin)
-Gin is a HTTP web framework written in Go (Golang)  
-⭐ 80k stars | Go
-
-### [fastapi/fastapi](https://github.com/fastapi/fastapi)
-FastAPI framework, high performance, easy to learn, fast to code, ready for production  
-⭐ 80k stars | Python
+### [awesome-tailwindcss](https://github.com/aniftyco/awesome-tailwindcss)
+精选的 Tailwind CSS 资源  
+⭐ 9k+ stars
 
 ---
 
-## 工具与效率
+## 人工智能
 
-### [n8n-io/n8n](https://github.com/n8n-io/n8n)
-Fair-code workflow automation platform with native AI capabilities  
-⭐ 176k stars | TypeScript
+### [awesome-machine-learning](https://github.com/josephmisiti/awesome-machine-learning)
+精选的机器学习框架、库和软件  
+⭐ 67k+ stars
 
-### [grafana/grafana](https://github.com/grafana/grafana)
-The open and composable observability and data visualization platform  
-⭐ 72k stars | TypeScript
+### [awesome-deep-learning](https://github.com/ChristosChristofidis/awesome-deep-learning)
+精选的深度学习资源  
+⭐ 24k+ stars
 
-### [metabase/metabase](https://github.com/metabase/metabase)
-The easy-to-use open source Business Intelligence and Embedded Analytics tool  
-⭐ 46k stars | Clojure
+### [awesome-nlp](https://github.com/keon/awesome-nlp)
+精选的自然语言处理资源  
+⭐ 18k+ stars
+
+### [awesome-computer-vision](https://github.com/jbhuang0604/awesome-computer-vision)
+精选的计算机视觉资源  
+⭐ 21k+ stars
+
+---
+
+## 开发工具
+
+### [awesome-shell](https://github.com/alebcay/awesome-shell)
+精选的命令行框架、工具和资源  
+⭐ 32k+ stars
+
+### [awesome-docker](https://github.com/veggiemonk/awesome-docker)
+精选的 Docker 资源和项目  
+⭐ 30k+ stars
+
+### [awesome-vscode](https://github.com/viatsko/awesome-vscode)
+精选的 VS Code 扩展和资源  
+⭐ 25k+ stars
+
+### [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
+精选的 Zsh 插件集合  
+⭐ 15k+ stars
+
+---
+
+## 系统设计
+
+### [awesome-system-design](https://github.com/madd86/awesome-system-design)
+精选的系统设计资源  
+⭐ 29k+ stars
+
+### [awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)
+精选的规模化、可靠性、性能设计模式  
+⭐ 58k+ stars
+
+### [awesome-microservices](https://github.com/mfornos/awesome-microservices)
+精选的微服务架构资源  
+⭐ 14k+ stars
+
+---
+
+## 安全
+
+### [awesome-security](https://github.com/sbilly/awesome-security)
+精选的安全软件和资源  
+⭐ 12k+ stars
+
+### [awesome-hacking](https://github.com/Hack-with-Github/Awesome-Hacking)
+精选的黑客工具和资源  
+⭐ 89k+ stars
+
+### [awesome-ctf](https://github.com/apsdehal/awesome-ctf)
+精选的 CTF 框架、库和资源  
+⭐ 10k+ stars
 
 ---
 
 ## 学习资源
 
-### [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books)
-📚 Freely available programming books  
-⭐ 350k stars
+### [awesome-courses](https://github.com/prakhar1989/awesome-courses)
+精选的大学计算机科学课程  
+⭐ 62k+ stars
 
-### [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x)
-Master programming by recreating your favorite technologies from scratch  
-⭐ 323k stars
+### [awesome-interview-questions](https://github.com/DopplerHQ/awesome-interview-questions)
+精选的技术面试问题  
+⭐ 67k+ stars
 
-### [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university)
-A complete computer science study plan to become a software engineer  
-⭐ 312k stars
+### [awesome-algorithms](https://github.com/tayllan/awesome-algorithms)
+精选的算法和数据结构资源  
+⭐ 17k+ stars
+
+---
+
+## 其他精选
+
+### [awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
+精选的自托管软件列表  
+⭐ 215k+ stars
+
+### [awesome-design-patterns](https://github.com/DovAmir/awesome-design-patterns)
+精选的软件设计模式资源  
+⭐ 18k+ stars
+
+### [awesome-bigdata](https://github.com/onurakpolat/awesome-bigdata)
+精选的大数据框架、资源和其他  
+⭐ 13k+ stars
+
+### [awesome-blockchain](https://github.com/igorbarinov/awesome-blockchain)
+精选的区块链和加密货币资源  
+⭐ 11k+ stars
 
 ---
 
 *最后更新：2026年2月27日*  
-*数据来源：GitHub API*
+*灵感来源：[sindresorhus/awesome](https://github.com/sindresorhus/awesome)*
