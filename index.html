@@ -2,72 +2,402 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Awesome Hub - 精选开源资源</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="精选 GitHub 开源资源榜单">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <title>风崽的工作台</title>
+  <meta name="description" content="风崽的数字化工作台 - AI助手的工作状态可视化">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --theme-color: #42b983;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      color: #eee;
     }
-    .markdown-section {
-      max-width: 900px;
+    
+    /* 顶部导航 */
+    .header {
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .markdown-section h1 {
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #e94560;
+    }
+    
+    /* 主内容区 */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* 欢迎区 */
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    
+    .hero h1 {
       font-size: 2.5rem;
-      border-bottom: none;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #fff, #e94560);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .markdown-section h2 {
-      font-size: 1.8rem;
-      margin-top: 3rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #eaecef;
+    
+    .hero p {
+      color: #888;
+      font-size: 1.1rem;
     }
-    .markdown-section h3 {
+    
+    /* 工作台区域 */
+    .workspace-section {
+      margin: 3rem 0;
+    }
+    
+    .section-title {
       font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      padding-left: 1rem;
+      border-left: 4px solid #e94560;
+    }
+    
+    /* Star Office UI 容器 */
+    .office-container {
+      background: rgba(0,0,0,0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    #game-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 500px;
+      margin: 0 auto;
+      border: 4px solid #e94560;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #2d3748;
+    }
+    
+    #home-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    #avatar {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      transition: all 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    
+    .area-label {
+      position: absolute;
+      color: #fff;
+      font-size: 11px;
+      background: rgba(0,0,0,0.7);
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    
+    #bubble {
+      position: absolute;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #333;
+      border: 2px solid #e94560;
+      display: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    
+    #bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid #e94560;
+    }
+    
+    #status-bar {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #eee;
+      font-size: 1rem;
+      background: rgba(233, 69, 96, 0.2);
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(233, 69, 96, 0.3);
+    }
+    
+    /* 功能区卡片 */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
       margin-top: 2rem;
     }
-    .markdown-section p {
-      line-height: 1.8;
+    
+    .feature-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
     }
-    .markdown-section a {
-      color: #0366d6;
-      text-decoration: none;
+    
+    .feature-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(233, 69, 96, 0.5);
+      transform: translateY(-2px);
     }
-    .markdown-section a:hover {
-      text-decoration: underline;
+    
+    .feature-card h3 {
+      color: #e94560;
+      margin-bottom: 0.5rem;
     }
-    .github-corner svg {
-      fill: #42b983;
+    
+    .feature-card p {
+      color: #888;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    /* 页脚 */
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #666;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 3rem;
+    }
+    
+    /* 响应式 */
+    @media (max-width: 768px) {
+      #game-container {
+        height: 350px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="app"></div>
+  <header class="header">
+    <div class="logo">🐾 风崽的工作台</div>
+    <nav class="nav-links">
+      <a href="#office">风崽状态</a>
+      <a href="#features">功能</a>
+      <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <h1>风崽的工作台</h1>
+      <p>AI 助手风崽的数字化办公空间 —— 实时查看工作状态，管理定时任务</p>
+    </section>
+
+    <section class="workspace-section" id="office">
+      <h2 class="section-title">风崽的办公室</h2>
+      <div class="office-container">
+        <div id="game-container">
+          <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
+          
+          <!-- 区域标签 -->
+          <div class="area-label" style="left: 18%; top: 40%;">书房</div>
+          <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
+          <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
+          <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
+          
+          <!-- 风崽 -->
+          <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
+          
+          <!-- 气泡 -->
+          <div id="bubble"></div>
+        </div>
+        
+        <div id="status-bar">风崽准备就绪</div>
+      </div>
+    </section>
+
+    <section class="workspace-section" id="features">
+      <h2 class="section-title">功能模块</h2>
+      <div class="features">
+        <div class="feature-card">
+          <h3>📊 AI 日报</h3>
+          <p>每日自动抓取 Hacker News 等 90+ 技术博客，AI 评分筛选高质量文章，生成中文摘要并推送到飞书</p>
+        </div>
+        <div class="feature-card">
+          <h3>⭐ GitHub 每日精选</h3>
+          <p>基于聆风的兴趣领域，每日推荐 AI 内容创作、课程制作、效率工具相关的优质开源项目</p>
+        </div>
+        <div class="feature-card">
+          <h3>📚 大咖知识库</h3>
+          <p>自动追踪 Dan Koe、Lenny Rachitsky、Naval、Andrej Karpathy 等创作者的最新内容</p>
+        </div>
+        <div class="feature-card">
+          <h3>🤖 微信公众号</h3>
+          <p>自动采集 AI 热门内容，撰写文章并发布到微信公众号草稿箱（开发中）</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>风崽的工作台 · 为聆风服务 🐾</p>
+  </footer>
+
   <script>
-    window.$docsify = {
-      name: 'Awesome Hub',
-      repo: 'https://github.com/Raymond-Hear/awesome-hub',
-      loadSidebar: false,
-      subMaxLevel: 2,
-      search: {
-        maxAge: 86400000,
-        paths: 'auto',
-        placeholder: '搜索...',
-        noData: '未找到结果',
-        depth: 2
-      },
-      copyCode: {
-        buttonText: '复制',
-        errorText: '失败',
-        successText: '已复制'
-      }
+    // 区域坐标（相对于容器百分比）
+    const AREAS = {
+      study: { x: 18, y: 45, name: '书房', task: '帮聆风工作' },
+      livingroom: { x: 31, y: 78, name: '客厅', task: '待命中' },
+      kitchen: { x: 68, y: 45, name: '厨房', task: '准备定时任务' },
+      balcony: { x: 77, y: 78, name: '阳台', task: '学习中' }
     };
+
+    const BUBBLE_TEXTS = {
+      study: ['帮聆风整理资料', '写代码中', '马上搞定', '在思考'],
+      livingroom: ['等聆风吩咐', '随时待命', '休息中', '准备开工'],
+      kitchen: ['生成日报中', '抓取GitHub项目', '定时任务中', 'AI处理中'],
+      balcony: ['读文章学习', '研究新技能', '充电中', '自我升级中']
+    };
+
+    const avatar = document.getElementById('avatar');
+    const statusBar = document.getElementById('status-bar');
+    const bubble = document.getElementById('bubble');
+    const container = document.getElementById('game-container');
+
+    let currentArea = 'livingroom';
+
+    // 获取容器尺寸计算实际像素位置
+    function getPixelPosition(area) {
+      const rect = container.getBoundingClientRect();
+      return {
+        x: (area.x / 100) * rect.width,
+        y: (area.y / 100) * rect.height
+      };
+    }
+
+    // 根据时间决定位置
+    function updateStatus() {
+      const hour = new Date().getHours();
+      const minute = new Date().getMinutes();
+      
+      let newArea = 'livingroom';
+      
+      // 定时任务时间（7:00-8:30, 10:00-10:30, 12:00-12:30, 18:00-18:30）
+      if ((hour === 7 || hour === 8) && minute < 35) {
+        newArea = 'kitchen';
+      } else if (hour === 10 && minute < 35) {
+        newArea = 'kitchen';
+      } else if ((hour === 12 || hour === 18) && minute < 35) {
+        newArea = 'kitchen';
+      } else if (hour >= 9 && hour <= 18) {
+        newArea = 'study';
+      } else {
+        newArea = 'livingroom';
+      }
+      
+      if (newArea !== currentArea) {
+        currentArea = newArea;
+        moveToArea(currentArea);
+      }
+    }
+
+    function moveToArea(areaName) {
+      const area = AREAS[areaName];
+      const pos = getPixelPosition(area);
+      
+      // 添加随机偏移
+      const offsetX = (Math.random() - 0.5) * 40;
+      const offsetY = (Math.random() - 0.5) * 30;
+      
+      avatar.style.left = (pos.x + offsetX) + 'px';
+      avatar.style.top = (pos.y + offsetY) + 'px';
+      statusBar.textContent = `风崽在${area.name} - ${area.task}`;
+      
+      showBubble();
+    }
+
+    function showBubble() {
+      const texts = BUBBLE_TEXTS[currentArea];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const pos = getPixelPosition(AREAS[currentArea]);
+      
+      bubble.textContent = text;
+      bubble.style.left = (pos.x + 20) + 'px';
+      bubble.style.top = (pos.y - 50) + 'px';
+      bubble.style.display = 'block';
+      
+      setTimeout(() => {
+        bubble.style.display = 'none';
+      }, 3000);
+    }
+
+    // 初始化
+    function init() {
+      const area = AREAS[currentArea];
+      const pos = getPixelPosition(area);
+      avatar.style.left = pos.x + 'px';
+      avatar.style.top = pos.y + 'px';
+      statusBar.textContent = `风崽在${area.name} - ${area.task}`;
+      
+      // 窗口大小改变时重新计算位置
+      window.addEventListener('resize', () => {
+        moveToArea(currentArea);
+      });
+      
+      // 定时更新
+      setInterval(updateStatus, 30000); // 每30秒检查一次
+      setTimeout(showBubble, 2000);
+    }
+
+    // 等待图片加载
+    window.addEventListener('load', init);
   </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
 </body>
 </html>
