@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Material You 紫色主题 */
       --primary: #6750a4;
       --primary-container: #eaddff;
       --on-primary: #ffffff;
@@ -24,8 +23,6 @@
       --outline: #79747e;
       --outline-variant: #cab6d0;
       --shadow: rgba(0,0,0,0.1);
-      
-      /* 圆角 */
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 28px;
@@ -41,7 +38,6 @@
       line-height: 1.6;
     }
     
-    /* Header */
     .header {
       background: var(--surface);
       border-bottom: 1px solid var(--outline-variant);
@@ -100,14 +96,12 @@
       color: var(--on-surface);
     }
     
-    /* Main */
     .main {
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1.5rem;
     }
     
-    /* Hero */
     .hero {
       background: linear-gradient(135deg, var(--primary-container) 0%, var(--secondary-container) 100%);
       border-radius: var(--radius-xl);
@@ -141,7 +135,6 @@
       color: var(--on-surface-variant);
     }
     
-    /* Stats */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -153,6 +146,7 @@
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .hero h1 { font-size: 1.75rem; }
       .hero { padding: 2rem 1.5rem; }
+      .content-grid { grid-template-columns: 1fr !important; }
     }
     
     .stat-card {
@@ -181,15 +175,11 @@
       color: var(--on-surface-variant);
     }
     
-    /* Content Sections */
     .content-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
-    }
-    
-    @media (max-width: 900px) {
-      .content-grid { grid-template-columns: 1fr; }
+      margin-bottom: 1.5rem;
     }
     
     .section-card {
@@ -240,7 +230,6 @@
       padding: 1rem;
     }
     
-    /* Article List */
     .article-list {
       display: flex;
       flex-direction: column;
@@ -286,7 +275,6 @@
       font-weight: 500;
     }
     
-    /* View All Button */
     .view-all {
       display: flex;
       align-items: center;
@@ -308,7 +296,6 @@
       box-shadow: 0 4px 16px rgba(103, 80, 164, 0.3);
     }
     
-    /* GitHub Specific */
     .github-item {
       display: flex;
       align-items: flex-start;
@@ -369,7 +356,57 @@
       line-height: 1.4;
     }
     
-    /* Footer */
+    .lobster-card {
+      background: linear-gradient(135deg, var(--primary-container) 0%, var(--secondary-container) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .lobster-avatar {
+      width: 80px;
+      height: 80px;
+      background: var(--surface);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0 auto 1rem;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    
+    .lobster-status {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--on-primary-container);
+      margin-bottom: 0.5rem;
+    }
+    
+    .lobster-task {
+      color: var(--on-surface-variant);
+      margin-bottom: 1.5rem;
+    }
+    
+    .lobster-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    
+    .lobster-btn:hover {
+      background: var(--on-primary-container);
+      box-shadow: 0 4px 16px rgba(103, 80, 164, 0.3);
+    }
+    
     .footer {
       text-align: center;
       padding: 3rem 1.5rem;
@@ -403,20 +440,20 @@
 <body>
   <header class="header">
     <div class="header-content">
-      <a href="/" class="logo">
+      <a href="./" class="logo">
         <div class="logo-icon">🦞</div>
         <span>龙虾工作台</span>
       </a>
       <nav class="nav-links">
-        <a href="/" class="active">今日</a>
-        <a href="/archive.html">归档</a>
+        <a href="./" class="active">今日</a>
+        <a href="./archive.html">归档</a>
+        <a href="./lobster.html">风崽状态</a>
         <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
       </nav>
     </div>
   </header>
 
   <main class="main">
-    <!-- Hero -->
     <section class="hero">
       <h1>今日精选内容</h1>
       <p>AI 日报、GitHub 项目推荐、大咖知识库 —— 每日自动更新</p>
@@ -426,7 +463,6 @@
       </div>
     </section>
 
-    <!-- Stats -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-value">15</div>
@@ -446,7 +482,17 @@
       </div>
     </div>
 
-    <!-- Content Grid -->
+    <!-- 风崽状态卡片 -->
+    <div class="lobster-card">
+      <div class="lobster-avatar">🦞</div>
+      <div class="lobster-status">风崽正在工作中</div>
+      <div class="lobster-task">当前任务：帮聆风整理资料、生成日报</div>
+      <a href="./lobster.html" class="lobster-btn">
+        <span>查看风崽办公室</span>
+        <span>→</span>
+      </a>
+    </div>
+
     <div class="content-grid">
       <!-- AI 日报 -->
       <div class="section-card">
@@ -488,8 +534,8 @@
               </div>
             </a>
           </div>
-          <a href="/archive.html#daily" class="view-all">
-            <span>查看全部日报</span>
+          <a href="./daily/2026-03-05.html" class="view-all">
+            <span>查看完整日报</span>
             <span>→</span>
           </a>
         </div>
@@ -513,7 +559,7 @@
                   <span class="github-name">microsoft/OmniParser</span>
                   <span class="github-stars">⭐ 15.2k</span>
                 </div>
-                <div class="github-desc">纯视觉 GUI 自动化工具，可解析屏幕内容并执行操作</div>
+                <div class="github-desc">纯视觉 GUI 自动化工具</div>
               </div>
             </a>
             <a href="https://github.com/langchain-ai/open_deep_research" target="_blank" class="github-item">
@@ -523,7 +569,7 @@
                   <span class="github-name">langchain-ai/open_deep_research</span>
                   <span class="github-stars">⭐ 8.5k</span>
                 </div>
-                <div class="github-desc">开源深度研究助手，自动化信息收集与分析</div>
+                <div class="github-desc">开源深度研究助手</div>
               </div>
             </a>
             <a href="https://github.com/allenai/olmocr" target="_blank" class="github-item">
@@ -533,7 +579,7 @@
                   <span class="github-name">allenai/olmocr</span>
                   <span class="github-stars">⭐ 5.3k</span>
                 </div>
-                <div class="github-desc">PDF 内容提取工具，保持格式和结构</div>
+                <div class="github-desc">PDF 内容提取工具</div>
               </div>
             </a>
             <a href="https://github.com/n8n-io/n8n" target="_blank" class="github-item">
@@ -543,12 +589,94 @@
                   <span class="github-name">n8n-io/n8n</span>
                   <span class="github-stars">⭐ 176.5k</span>
                 </div>
-                <div class="github-desc">自动化工作流平台，400+ 集成</div>
+                <div class="github-desc">自动化工作流平台</div>
               </div>
             </a>
           </div>
-          <a href="/archive.html#github" class="view-all">
+          <a href="./github/2026-03-05.html" class="view-all">
             <span>查看全部推荐</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 大咖知识库 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">📚</div>
+            <span>大咖知识库</span>
+          </div>
+          <span class="section-badge">09:00 更新</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://dankoe.substack.com/" target="_blank" class="article-item">
+              <div class="article-title">The Art of Slow Productivity</div>
+              <div class="article-meta">
+                <span class="article-tag">Dan Koe</span>
+                <span>个人成长</span>
+              </div>
+            </a>
+            <a href="https://www.lennysnewsletter.com/" target="_blank" class="article-item">
+              <div class="article-title">Product Management Trends 2025</div>
+              <div class="article-meta">
+                <span class="article-tag">Lenny</span>
+                <span>产品管理</span>
+              </div>
+            </a>
+            <a href="https://nav.al/" target="_blank" class="article-item">
+              <div class="article-title">The Almanack - 更新章节</div>
+              <div class="article-meta">
+                <span class="article-tag">Naval</span>
+                <span>哲学思考</span>
+              </div>
+            </a>
+            <a href="https://karpathy.ai/" target="_blank" class="article-item">
+              <div class="article-title">AI 发展的关键转折点</div>
+              <div class="article-meta">
+                <span class="article-tag">Karpathy</span>
+                <span>AI 技术</span>
+              </div>
+            </a>
+          </div>
+          <a href="./knowledge.html" class="view-all">
+            <span>浏览知识库</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 系统状态 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">⚙️</div>
+            <span>系统状态</span>
+          </div>
+          <span class="section-badge">实时</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <div class="article-item">
+              <div class="article-title">🟢 AI 日报推送</div>
+              <div class="article-meta">每日 07:00 运行正常</div>
+            </div>
+            <div class="article-item">
+              <div class="article-title">🟢 GitHub 每日推荐</div>
+              <div class="article-meta">每日 10:00 运行正常</div>
+            </div>
+            <div class="article-item">
+              <div class="article-title">🟢 大咖知识库更新</div>
+              <div class="article-meta">每日 09:00 运行正常</div>
+            </div>
+            <div class="article-item">
+              <div class="article-title">🟢 网站自动部署</div>
+              <div class="article-meta">每日 12:00 运行正常</div>
+            </div>
+          </div>
+          <a href="./lobster.html" class="view-all">
+            <span>查看风崽办公室</span>
             <span>→</span>
           </a>
         </div>
@@ -558,15 +686,15 @@
 
   <footer class="footer">
     <div class="footer-links">
-      <a href="/">今日</a>
-      <a href="/archive.html">归档</a>
+      <a href="./">今日</a>
+      <a href="./archive.html">归档</a>
+      <a href="./lobster.html">风崽</a>
       <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
     </div>
     <p>🦞 龙虾工作台 · 每日自动更新 · 为聆风服务</p>
   </footer>
 
   <script>
-    // 设置当前日期
     const dateEl = document.getElementById('current-date');
     const now = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };

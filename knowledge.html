@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大咖知识库 | 龙虾工作台</title>
+  <meta name="description" content="Dan Koe、Lenny Rachitsky、Naval、Andrej Karpathy 等创作者的最新内容">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6750a4;
+      --primary-container: #eaddff;
+      --on-primary: #ffffff;
+      --on-primary-container: #21005d;
+      --secondary: #625b71;
+      --secondary-container: #e8def8;
+      --surface: #fef7ff;
+      --surface-variant: #e7e0ec;
+      --background: #fffbfe;
+      --on-surface: #1c1b1f;
+      --on-surface-variant: #49454f;
+      --outline: #79747e;
+      --outline-variant: #cab6d0;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-xl: 32px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
+      color: var(--on-surface);
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-container);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .nav-links a {
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--secondary-container);
+      color: var(--on-surface);
+    }
+    
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    .page-header {
+      margin-bottom: 2rem;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-header p {
+      color: var(--on-surface-variant);
+    }
+    
+    /* Creator Cards */
+    .creators-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .creators-grid { grid-template-columns: 1fr; }
+    }
+    
+    .creator-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    
+    .creator-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    
+    .creator-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--primary-container);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    
+    .creator-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .creator-info h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--on-primary-container);
+    }
+    
+    .creator-info p {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+    
+    .creator-content {
+      padding: 1rem;
+    }
+    
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .article-item {
+      display: block;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    
+    .article-item:hover {
+      background: var(--surface-variant);
+      border-color: var(--outline-variant);
+    }
+    
+    .article-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+    
+    .article-meta {
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+    }
+    
+    .view-all {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.875rem;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .view-all:hover {
+      background: var(--on-primary-container);
+      box-shadow: 0 4px 16px rgba(103, 80, 164, 0.3);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--outline-variant);
+    }
+    
+    .footer p {
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links a {
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="./" class="logo">
+        <div class="logo-icon">🦞</div>
+        <span>龙虾工作台</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./">今日</a>
+        <a href="./archive.html">归档</a>
+        <a href="./lobster.html">风崽状态</a>
+        <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>📚 大咖知识库</h1>
+      <p>追踪领域顶尖创作者的最新内容和思考</p>
+    </div>
+
+    <div class="creators-grid">
+      <!-- Dan Koe -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🎯</div>
+          <div class="creator-info">
+            <h3>Dan Koe</h3>
+            <p>个人成长 · 创作者经济</p>
+          </div>
+        </div>
+        <div class="creator-content">
+          <div class="article-list">
+            <a href="https://dankoe.substack.com/" target="_blank" class="article-item">
+              <div class="article-title">The Art of Slow Productivity</div>
+              <div class="article-meta">2026年3月5日 · 个人成长</div>
+            </a>
+            <a href="https://dankoe.substack.com/" target="_blank" class="article-item">
+              <div class="article-title">How to Build a One-Person Business</div>
+              <div class="article-meta">2026年3月3日 · 创业</div>
+            </a>
+            <a href="https://dankoe.substack.com/" target="_blank" class="article-item">
+              <div class="article-title">The Future of Work in AI Era</div>
+              <div class="article-meta">2026年3月1日 · AI趋势</div>
+            </a>
+          </div>
+          <a href="https://dankoe.substack.com/" target="_blank" class="view-all">
+            <span>访问 Dan Koe 主页</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Lenny Rachitsky -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">📈</div>
+          <div class="creator-info">
+            <h3>Lenny Rachitsky</h3>
+            <p>产品管理 · 创业</p>
+          </div>
+        </div>
+        <div class="creator-content">
+          <div class="article-list">
+            <a href="https://www.lennysnewsletter.com/" target="_blank" class="article-item">
+              <div class="article-title">Product Management Trends 2025</div>
+              <div class="article-meta">2026年3月5日 · 产品趋势</div>
+            </a>
+            <a href="https://www.lennysnewsletter.com/" target="_blank" class="article-item">
+              <div class="article-title">How Top PMs Use AI Tools</div>
+              <div class="article-meta">2026年3月2日 · AI工具</div>
+            </a>
+            <a href="https://www.lennysnewsletter.com/" target="_blank" class="article-item">
+              <div class="article-title">Building Products Users Love</div>
+              <div class="article-meta">2026年2月28日 · 产品设计</div>
+            </a>
+          </div>
+          <a href="https://www.lennysnewsletter.com/" target="_blank" class="view-all">
+            <span>访问 Lenny's Newsletter</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Naval Ravikant -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🧠</div>
+          <div class="creator-info">
+            <h3>Naval Ravikant</h3>
+            <p>哲学 · 财富 · 幸福</p>
+          </div>
+        </div>
+        <div class="creator-content">
+          <div class="article-list">
+            <a href="https://nav.al/" target="_blank" class="article-item">
+              <div class="article-title">The Almanack - 更新章节</div>
+              <div class="article-meta">2026年3月5日 · 哲学思考</div>
+            </a>
+            <a href="https://nav.al/" target="_blank" class="article-item">
+              <div class="article-title">How to Get Rich (without getting lucky)</div>
+              <div class="article-meta">2026年3月1日 · 财富</div>
+            </a>
+            <a href="https://nav.al/" target="_blank" class="article-item">
+              <div class="article-title">The Power of Compound Interest</div>
+              <div class="article-meta">2026年2月26日 · 投资</div>
+            </a>
+          </div>
+          <a href="https://nav.al/" target="_blank" class="view-all">
+            <span>访问 Naval 主页</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Andrej Karpathy -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🤖</div>
+          <div class="creator-info">
+            <h3>Andrej Karpathy</h3>
+            <p>AI · 深度学习 · 教育</p>
+          </div>
+        </div>
+        <div class="creator-content">
+          <div class="article-list">
+            <a href="https://karpathy.ai/" target="_blank" class="article-item">
+              <div class="article-title">AI 发展的关键转折点</div>
+              <div class="article-meta">2026年3月5日 · AI趋势</div>
+            </a>
+            <a href="https://karpathy.ai/" target="_blank" class="article-item">
+              <div class="article-title">Let's Build GPT: From Scratch</div>
+              <div class="article-meta">2026年3月2日 · 教程</div>
+            </a>
+            <a href="https://karpathy.ai/" target="_blank" class="article-item">
+              <div class="article-title">The State of Computer Vision</div>
+              <div class="article-meta">2026年2月28日 · 技术</div>
+            </a>
+          </div>
+          <a href="https://karpathy.ai/" target="_blank" class="view-all">
+            <span>访问 Karpathy 主页</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="./">今日</a>
+      <a href="./archive.html">归档</a>
+      <a href="./lobster.html">风崽</a>
+      <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+    </div>
+    <p>🦞 龙虾工作台 · 每日自动更新 · 为聆风服务</p>
+  </footer>
+</body>
+</html>

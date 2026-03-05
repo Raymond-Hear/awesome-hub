@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>风崽的办公室 | 龙虾工作台</title>
+  <meta name="description" content="风崽的实时工作状态 - AI助手的像素办公室">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6750a4;
+      --primary-container: #eaddff;
+      --on-primary: #ffffff;
+      --on-primary-container: #21005d;
+      --secondary: #625b71;
+      --secondary-container: #e8def8;
+      --surface: #fef7ff;
+      --surface-variant: #e7e0ec;
+      --background: #fffbfe;
+      --on-surface: #1c1b1f;
+      --on-surface-variant: #49454f;
+      --outline: #79747e;
+      --outline-variant: #cab6d0;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-xl: 32px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
+      color: var(--on-surface);
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-container);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .nav-links a {
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--secondary-container);
+      color: var(--on-surface);
+    }
+    
+    .main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-header p {
+      color: var(--on-surface-variant);
+    }
+    
+    /* Pixel Office */
+    .office-container {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    #game-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      height: 400px;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 2px solid var(--outline-variant);
+    }
+    
+    #home-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    
+    .area-label {
+      position: absolute;
+      color: #fff;
+      font-size: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 6px 12px;
+      border-radius: 20px;
+      pointer-events: none;
+      font-weight: 600;
+    }
+    
+    #avatar {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+      z-index: 10;
+    }
+    
+    #bubble {
+      position: absolute;
+      background: white;
+      padding: 10px 16px;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #1a1a2e;
+      border: 2px solid var(--primary);
+      display: none;
+      white-space: nowrap;
+      z-index: 20;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    #bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--primary);
+    }
+    
+    #status-bar {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: var(--primary-container);
+      border-radius: var(--radius-lg);
+      color: var(--on-primary-container);
+      font-weight: 600;
+    }
+    
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      #game-container { height: 300px; }
+    }
+    
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .stat-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+    
+    /* Activity Log */
+    .activity-section {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+    }
+    
+    .activity-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--surface-variant);
+      border-radius: var(--radius-md);
+    }
+    
+    .activity-time {
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+      min-width: 60px;
+    }
+    
+    .activity-content {
+      flex: 1;
+    }
+    
+    .activity-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .activity-desc {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--outline-variant);
+    }
+    
+    .footer p {
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="./" class="logo">
+        <div class="logo-icon">🦞</div>
+        <span>龙虾工作台</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./">今日</a>
+        <a href="./archive.html">归档</a>
+        <a href="./lobster.html" class="active">风崽状态</a>
+        <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>🦞 风崽的办公室</h1>
+      <p>实时查看风崽的工作状态和位置</p>
+    </div>
+
+    <!-- 像素办公室 -->
+    <div class="office-container">
+      <div id="game-container">
+        <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
+        
+        <div class="area-label" style="left: 18%; top: 40%;">书房</div>
+        <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
+        <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
+        <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
+        
+        <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
+        <div id="bubble"></div>
+      </div>
+      <div id="status-bar">🦞 风崽在书房 — 帮聆风整理资料</div>
+    </div>
+
+    <!-- 统计 -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">45</div>
+        <div class="stat-label">今日处理文章</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value">8.5</div>
+        <div class="stat-label">工作时长(小时)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">完成任务</div>
+      </div>
+    </div>
+
+    <!-- 活动日志 -->
+    <div class="activity-section">
+      <div class="activity-header">
+        <span>📋</span>
+        <span>今日活动日志</span>
+      </div>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-time">07:00</div>
+          <div class="activity-content">
+            <div class="activity-title">生成 AI 日报</div>
+            <div class="activity-desc">抓取 90+ 技术博客，筛选 15 篇高质量文章</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-time">07:30</div>
+          <div class="activity-content">
+            <div class="activity-title">推送到飞书</div>
+            <div class="activity-desc">日报已同步到飞书文档</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-time">09:00</div>
+          <div class="activity-content">
+            <div class="activity-title">大咖知识库更新</div>
+            <div class="activity-desc">抓取 Dan Koe、Lenny、Naval 最新文章</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-time">10:00</div>
+          <div class="activity-content">
+            <div class="activity-title">GitHub 每日推荐</div>
+            <div class="activity-desc">基于聆风兴趣筛选 10 个开源项目</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-time">20:45</div>
+          <div class="activity-content">
+            <div class="activity-title">更新网站</div>
+            <div class="activity-desc">部署新设计到 GitHub Pages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🦞 龙虾工作台 · 每日自动更新 · 为聆风服务</p>
+  </footer>
+
+  <script>
+    const AREAS = {
+      study: { x: 18, y: 45, name: '书房', task: '帮聆风整理资料' },
+      livingroom: { x: 31, y: 78, name: '客厅', task: '待命中' },
+      kitchen: { x: 68, y: 45, name: '厨房', task: '准备定时任务' },
+      balcony: { x: 77, y: 78, name: '阳台', task: '学习中' }
+    };
+
+    const BUBBLE_TEXTS = {
+      study: ['帮聆风整理资料', '写代码中', '马上搞定', '在思考'],
+      livingroom: ['等聆风吩咐', '随时待命', '休息中', '准备开工'],
+      kitchen: ['生成日报中', '抓取GitHub项目', '定时任务中', 'AI处理中'],
+      balcony: ['读文章学习', '研究新技能', '充电中', '自我升级中']
+    };
+
+    const avatar = document.getElementById('avatar');
+    const statusBar = document.getElementById('status-bar');
+    const bubble = document.getElementById('bubble');
+    const container = document.getElementById('game-container');
+
+    let currentArea = 'study';
+
+    function getPixelPosition(area) {
+      const rect = container.getBoundingClientRect();
+      return {
+        x: (area.x / 100) * rect.width,
+        y: (area.y / 100) * rect.height
+      };
+    }
+
+    function updateStatus() {
+      const hour = new Date().getHours();
+      const minute = new Date().getMinutes();
+      
+      let newArea = 'livingroom';
+      
+      if ((hour === 7 || hour === 8) && minute < 35) {
+        newArea = 'kitchen';
+      } else if (hour === 10 && minute < 35) {
+        newArea = 'kitchen';
+      } else if ((hour === 12 || hour === 18) && minute < 35) {
+        newArea = 'kitchen';
+      } else if (hour >= 9 && hour <= 18) {
+        newArea = 'study';
+      } else {
+        newArea = 'livingroom';
+      }
+      
+      if (newArea !== currentArea) {
+        currentArea = newArea;
+        moveToArea(currentArea);
+      }
+    }
+
+    function moveToArea(areaName) {
+      const area = AREAS[areaName];
+      const pos = getPixelPosition(area);
+      
+      const offsetX = (Math.random() - 0.5) * 40;
+      const offsetY = (Math.random() - 0.5) * 30;
+      
+      avatar.style.left = (pos.x + offsetX) + 'px';
+      avatar.style.top = (pos.y + offsetY) + 'px';
+      statusBar.textContent = `🦞 风崽在${area.name} — ${area.task}`;
+      
+      showBubble();
+    }
+
+    function showBubble() {
+      const texts = BUBBLE_TEXTS[currentArea];
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const pos = getPixelPosition(AREAS[currentArea]);
+      
+      bubble.textContent = text;
+      bubble.style.left = (pos.x + 20) + 'px';
+      bubble.style.top = (pos.y - 50) + 'px';
+      bubble.style.display = 'block';
+      
+      setTimeout(() => {
+        bubble.style.display = 'none';
+      }, 3000);
+    }
+
+    function init() {
+      const area = AREAS[currentArea];
+      const pos = getPixelPosition(area);
+      avatar.style.left = pos.x + 'px';
+      avatar.style.top = pos.y + 'px';
+      statusBar.textContent = `🦞 风崽在${area.name} — ${area.task}`;
+      
+      window.addEventListener('resize', () => {
+        moveToArea(currentArea);
+      });
+      
+      setInterval(updateStatus, 30000);
+      setTimeout(showBubble, 2000);
+    }
+
+    window.addEventListener('load', init);
+  </script>
+</body>
+</html>
