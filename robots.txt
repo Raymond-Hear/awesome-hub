@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# 禁止所有爬虫索引
