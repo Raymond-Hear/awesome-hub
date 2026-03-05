@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reddit 精选 | 龙虾工作台</title>
+  <meta name="description" content="Reddit 精选内容 - 产品管理、创业、AI相关讨论">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6750a4;
+      --primary-container: #eaddff;
+      --on-primary: #ffffff;
+      --on-primary-container: #21005d;
+      --secondary: #625b71;
+      --secondary-container: #e8def8;
+      --surface: #fef7ff;
+      --surface-variant: #e7e0ec;
+      --background: #fffbfe;
+      --on-surface: #1c1b1f;
+      --on-surface-variant: #49454f;
+      --outline: #79747e;
+      --outline-variant: #cab6d0;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-xl: 32px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
+      color: var(--on-surface);
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-container);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .nav-links a {
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--secondary-container);
+      color: var(--on-surface);
+    }
+    
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    .page-header {
+      margin-bottom: 2rem;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-header p {
+      color: var(--on-surface-variant);
+    }
+    
+    .update-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--primary-container);
+      border-radius: var(--radius-lg);
+      font-size: 0.9rem;
+      color: var(--on-primary-container);
+      margin-top: 1rem;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      background: var(--primary-container);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--on-primary-container);
+    }
+    
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    
+    .section-badge {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
+    }
+    
+    .section-content {
+      padding: 1rem;
+    }
+    
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .article-item {
+      display: block;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    
+    .article-item:hover {
+      background: var(--surface-variant);
+      border-color: var(--outline-variant);
+    }
+    
+    .article-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+    
+    .article-summary {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+    }
+    
+    .article-tag {
+      padding: 0.15rem 0.5rem;
+      background: var(--secondary-container);
+      border-radius: var(--radius-sm);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--outline-variant);
+    }
+    
+    .footer p {
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="./" class="logo">
+        <div class="logo-icon">🦞</div>
+        <span>龙虾工作台</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./">今日</a>
+        <a href="./archive.html">归档</a>
+        <a href="./x-content.html">X精选</a>
+        <a href="./reddit-content.html" class="active">Reddit</a>
+        <a href="./lobster.html">风崽</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>🔴 Reddit 精选</h1>
+      <p>Reddit 上与聆风相关的精选讨论</p>
+      <div class="update-time">
+        <span>🕐</span>
+        <span>每日 08:00 更新 · 2026年3月6日</span>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <!-- 创业讨论 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">🚀</div>
+            <span>创业讨论</span>
+          </div>
+          <span class="section-badge">3 条更新</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://codecondo.com/entrepreneur-skill-2025/" target="_blank" class="article-item">
+              <div class="article-title">2025 年创业者必备技能：情绪韧性建设</div>
+              <div class="article-summary">培养成长型思维，将失败视为实验；通过正念冥想管理压力；建立支持网络，连接 X #Entrepreneurship 或 Reddit r/Entrepreneur 社区获取同行建议。</div>
+              <div class="article-meta">
+                <span class="article-tag">创业技能</span>
+                <span>CodeCondo · 心理建设</span>
+              </div>
+            </a>
+            <a href="https://fintechdailyinfo.com/international-entrepreneur-rule-news-2025-will-the-u-s-finally-embrace-startup-visas/" target="_blank" class="article-item">
+              <div class="article-title">国际创业者规则 2025 更新：美国创业签证新动向</div>
+              <div class="article-summary">DHS 更新 IER 规则，调整投资和收入门槛。合格创业者可在美国停留最多 30 个月（2.5年），可续期。需拥有至少 10% 股份，证明快速增长潜力。</div>
+              <div class="article-meta">
+                <span class="article-tag">政策</span>
+                <span>FinTech Daily · 签证</span>
+              </div>
+            </a>
+            <div class="article-item">
+              <div class="article-title">创业加速器：THE WORKS 2025 项目开启报名</div>
+              <div class="article-summary">针对早期软件技术和科技赋能公司的终极加速器。包括 SaaS、MedTech、FinTech、物流、通信、项目管理、营销、研究、信息技术等领域。</div>
+              <div class="article-meta">
+                <span class="article-tag">加速器</span>
+                <span>Knoxville EC · 创业</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 产品管理 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">📊</div>
+            <span>产品管理</span>
+          </div>
+          <span class="section-badge">2 条更新</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <div class="article-item">
+              <div class="article-title">Skims CEO Emma Grede 的产品管理哲学</div>
+              <div class="article-summary">"我像管理军事基地一样管理我的家和公司。" 每天 5:30 起床，在 Slack 消息和会议之前赢得属于自己的时间。纪律带来清晰，清晰驱动战略。</div>
+              <div class="article-meta">
+                <span class="article-tag">产品管理</span>
+                <span>Level Up Mag · 领导力</span>
+              </div>
+            </div>
+            <div class="article-item">
+              <div class="article-title">创业者时间管理：每周 50 小时工作制</div>
+              <div class="article-summary">优先自我关怀确保心理耐力，每周工作不超过 50 小时，保持规律锻炼和睡眠。使用 Trello 或 Asana 等工具简化任务，为韧性建设腾出心理空间。</div>
+              <div class="article-meta">
+                <span class="article-tag">效率</span>
+                <span>创业技巧 · 时间管理</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 与科技 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">🤖</div>
+            <span>AI 与科技</span>
+          </div>
+          <span class="section-badge">2 条更新</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <div class="article-item">
+              <div class="article-title">AI 接管内容创作：2025 创作者经济的双刃剑</div>
+              <div class="article-summary">AI 影响者如 Granny Spill、Xania Monet 崛起，但也引发 MrBeast、iShowSpeed 等创作者的焦虑。YouTube 推出 Ask Studio 分析频道表现，Meta 发布 Vibes AI 视频流。</div>
+              <div class="article-meta">
+                <span class="article-tag">AI趋势</span>
+                <span>The Wrap · 创作者经济</span>
+              </div>
+            </div>
+            <div class="article-item">
+              <div class="article-title">无肥皂护肤：MIT 毕业生创办的 1000 万美元创业公司</div>
+              <div class="article-summary">Bare Method 使用生物相容性清洁成分，模仿皮肤天然脂质平衡。最近完成 320 万美元种子轮融资，与皮肤科医生合作进行临床试验。</div>
+              <div class="article-meta">
+                <span class="article-tag">创业案例</span>
+                <span>Level Up Mag · DTC品牌</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🦞 龙虾工作台 · 每日自动更新 · 为<a href="https://github.com/Raymond-Hear" target="_blank" style="color: var(--primary); text-decoration: none;">聆风</a>服务</p>
+  </footer>
+</body>
+</html>
