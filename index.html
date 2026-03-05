@@ -2,59 +2,58 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>风崽的工作台 | 聆风的 AI 助手</title>
-  <meta name="description" content="风崽的数字化工作台 - AI助手的工作状态可视化，每日AI日报、GitHub精选、知识库更新">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙虾工作台 | 每日精选</title>
+  <meta name="description" content="AI日报、GitHub精选、大咖知识库 - 每日自动更新">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --canvas: #0a0a0f;
-      --surface: #12121a;
-      --surface-elevated: #1a1a25;
-      --ink: #ffffff;
-      --ink-muted: #a0a0b0;
-      --accent: #e94560;
-      --accent-glow: rgba(233, 69, 96, 0.3);
-      --glass: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
+      /* Material You 紫色主题 */
+      --primary: #6750a4;
+      --primary-container: #eaddff;
+      --on-primary: #ffffff;
+      --on-primary-container: #21005d;
+      --secondary: #625b71;
+      --secondary-container: #e8def8;
+      --surface: #fef7ff;
+      --surface-variant: #e7e0ec;
+      --background: #fffbfe;
+      --on-surface: #1c1b1f;
+      --on-surface-variant: #49454f;
+      --outline: #79747e;
+      --outline-variant: #cab6d0;
+      --shadow: rgba(0,0,0,0.1);
+      
+      /* 圆角 */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 28px;
+      --radius-xl: 32px;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      background: var(--canvas);
-      min-height: 100vh;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--ink);
+      background: var(--background);
+      color: var(--on-surface);
       line-height: 1.6;
-    }
-    
-    /* Animated background */
-    .bg-gradient {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: 
-        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(233, 69, 96, 0.15), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(124, 58, 237, 0.1), transparent),
-        var(--canvas);
-      z-index: -1;
     }
     
     /* Header */
     .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
       position: sticky;
       top: 0;
-      background: rgba(10, 10, 15, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
       z-index: 100;
     }
     
     .header-content {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 2rem;
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -66,13 +65,15 @@
       gap: 0.75rem;
       font-size: 1.25rem;
       font-weight: 700;
+      color: var(--on-surface);
+      text-decoration: none;
     }
     
     .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--accent), #ff6b6b);
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      background: var(--primary-container);
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -81,670 +82,495 @@
     
     .nav-links {
       display: flex;
-      gap: 2rem;
-      align-items: center;
+      gap: 0.5rem;
     }
     
     .nav-links a {
-      color: var(--ink-muted);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: all 0.2s;
     }
     
-    .nav-links a:hover {
-      color: var(--ink);
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--secondary-container);
+      color: var(--on-surface);
     }
     
-    .status-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #22c55e;
-    }
-    
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background: #22c55e;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    
-    /* Main content */
+    /* Main */
     .main {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
     }
     
-    /* Hero section */
+    /* Hero */
     .hero {
+      background: linear-gradient(135deg, var(--primary-container) 0%, var(--secondary-container) 100%);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      margin-bottom: 2rem;
       text-align: center;
-      padding: 4rem 0 3rem;
     }
     
     .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, #fff, #e94560 50%, #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--on-primary-container);
+      margin-bottom: 0.75rem;
     }
     
     .hero p {
-      color: var(--ink-muted);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
+      color: var(--on-surface-variant);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
     }
     
-    /* Dashboard grid */
-    .dashboard {
+    .hero-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+    
+    /* Stats */
+    .stats-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
       margin-bottom: 2rem;
     }
     
-    @media (max-width: 900px) {
-      .dashboard { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 2.5rem; }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 1.75rem; }
+      .hero { padding: 2rem 1.5rem; }
     }
     
-    /* Cards */
-    .card {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 24px;
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
       padding: 1.5rem;
-      transition: all 0.3s ease;
-    }
-    
-    .card:hover {
-      border-color: rgba(233, 69, 96, 0.3);
-      box-shadow: 0 0 40px var(--accent-glow);
-    }
-    
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-    
-    .card-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-    
-    .card-icon.daily { background: rgba(59, 130, 246, 0.2); }
-    .card-icon.github { background: rgba(34, 197, 94, 0.2); }
-    .card-icon.knowledge { background: rgba(168, 85, 247, 0.2); }
-    .card-icon.stats { background: rgba(245, 158, 11, 0.2); }
-    
-    .card-badge {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      color: var(--ink-muted);
-    }
-    
-    /* Content list */
-    .content-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    
-    .content-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      transition: background 0.2s;
-    }
-    
-    .content-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-    }
-    
-    .content-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin-top: 0.5rem;
-      flex-shrink: 0;
-    }
-    
-    .content-text {
-      flex: 1;
-    }
-    
-    .content-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 0.25rem;
-    }
-    
-    .content-meta {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-    }
-    
-    /* Stats grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-    
-    .stat-item {
       text-align: center;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 16px;
+      transition: all 0.2s;
+    }
+    
+    .stat-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px var(--shadow);
     }
     
     .stat-value {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
     }
     
     .stat-label {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
-      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
     }
     
-    /* Office visualization */
-    .office-section {
-      margin: 3rem 0;
+    /* Content Sections */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (max-width: 900px) {
+      .content-grid { grid-template-columns: 1fr; }
+    }
+    
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      background: var(--primary-container);
+      border-bottom: 1px solid var(--outline-variant);
     }
     
     .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--on-primary-container);
     }
     
-    .office-container {
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    
+    .section-badge {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
       background: var(--surface);
-      border-radius: 24px;
-      padding: 2rem;
-      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--on-surface-variant);
     }
     
-    #game-container {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      height: 450px;
-      margin: 0 auto;
-      border-radius: 16px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 2px solid var(--border);
+    .section-content {
+      padding: 1rem;
     }
     
-    #home-bg {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.8;
+    /* Article List */
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
     
-    .area-label {
-      position: absolute;
-      color: #fff;
-      font-size: 11px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 4px 10px;
-      border-radius: 20px;
-      pointer-events: none;
-      font-weight: 500;
-    }
-    
-    #avatar {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-      z-index: 10;
-    }
-    
-    #bubble {
-      position: absolute;
-      background: white;
-      padding: 10px 16px;
-      border-radius: 16px;
-      font-size: 13px;
-      color: #1a1a2e;
-      border: 2px solid var(--accent);
-      display: none;
-      white-space: nowrap;
-      z-index: 20;
-      font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-    
-    #bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid var(--accent);
-    }
-    
-    #status-bar {
-      text-align: center;
-      margin-top: 1.5rem;
-      padding: 1rem 1.5rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.2);
-      border-radius: 12px;
-      color: var(--ink);
-      font-weight: 500;
-    }
-    
-    /* Full width sections */
-    .full-width {
-      grid-column: 1 / -1;
-    }
-    
-    /* Links */
-    .card-link {
+    .article-item {
       display: block;
+      padding: 1rem;
+      border-radius: var(--radius-md);
       text-decoration: none;
       color: inherit;
+      transition: all 0.2s;
+      border: 1px solid transparent;
     }
     
-    .view-all {
-      display: inline-flex;
+    .article-item:hover {
+      background: var(--surface-variant);
+      border-color: var(--outline-variant);
+    }
+    
+    .article-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+    
+    .article-meta {
+      display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: rgba(233, 69, 96, 0.1);
-      border: 1px solid rgba(233, 69, 96, 0.3);
-      border-radius: 8px;
-      color: var(--accent);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+    }
+    
+    .article-tag {
+      padding: 0.15rem 0.5rem;
+      background: var(--secondary-container);
+      border-radius: var(--radius-sm);
+      font-size: 0.7rem;
       font-weight: 500;
+    }
+    
+    /* View All Button */
+    .view-all {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.875rem;
+      background: var(--primary);
+      color: var(--on-primary);
+      border-radius: var(--radius-lg);
       text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
     
     .view-all:hover {
-      background: rgba(233, 69, 96, 0.2);
+      background: var(--on-primary-container);
+      box-shadow: 0 4px 16px rgba(103, 80, 164, 0.3);
+    }
+    
+    /* GitHub Specific */
+    .github-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    
+    .github-item:hover {
+      background: var(--surface-variant);
+    }
+    
+    .github-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--secondary-container);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .github-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .github-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .github-name {
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    
+    .github-stars {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+      flex-shrink: 0;
+    }
+    
+    .github-desc {
+      font-size: 0.85rem;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
     }
     
     /* Footer */
     .footer {
       text-align: center;
-      padding: 3rem 2rem;
-      color: var(--ink-muted);
-      border-top: 1px solid var(--border);
-      margin-top: 3rem;
+      padding: 3rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--outline-variant);
+    }
+    
+    .footer p {
+      color: var(--on-surface-variant);
+      font-size: 0.9rem;
     }
     
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
       margin-bottom: 1rem;
     }
     
     .footer-links a {
-      color: var(--ink-muted);
+      color: var(--on-surface-variant);
       text-decoration: none;
-      transition: color 0.2s;
+      font-size: 0.85rem;
     }
     
     .footer-links a:hover {
-      color: var(--accent);
+      color: var(--primary);
     }
   </style>
 </head>
 <body>
-  <div class="bg-gradient"></div>
-  
   <header class="header">
     <div class="header-content">
-      <div class="logo">
-        <div class="logo-icon">🐾</div>
-        <span>风崽的工作台</span>
-      </div>
+      <a href="/" class="logo">
+        <div class="logo-icon">🦞</div>
+        <span>龙虾工作台</span>
+      </a>
       <nav class="nav-links">
-        <a href="#dashboard">仪表盘</a>
-        <a href="#office">风崽状态</a>
+        <a href="/" class="active">今日</a>
+        <a href="/archive.html">归档</a>
         <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
-        <div class="status-badge">
-          <span class="status-dot"></span>
-          <span>运行中</span>
-        </div>
       </nav>
     </div>
   </header>
 
   <main class="main">
+    <!-- Hero -->
     <section class="hero">
-      <h1>风崽的工作台</h1>
-      <p>AI 助手风崽的数字化办公空间 —— 实时追踪每日资讯、GitHub 精选、知识库更新</p>
+      <h1>今日精选内容</h1>
+      <p>AI 日报、GitHub 项目推荐、大咖知识库 —— 每日自动更新</p>
+      <div class="hero-date">
+        <span>📅</span>
+        <span id="current-date">2026年3月5日</span>
+      </div>
     </section>
 
-    <div class="dashboard" id="dashboard">
-      <!-- AI 日报 -->
-      <a href="https://hxwd.feishu.cn/docx/EV7adYO9io6QHkx4zFcc1F21nRd" target="_blank" class="card-link">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <div class="card-icon daily">📊</div>
-              <span>AI 日报</span>
-            </div>
-            <span class="card-badge">每日 07:00</span>
-          </div>
-          <div class="content-list">
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Claude 3.7 Sonnet 发布，编程能力大幅提升</div>
-                <div class="content-meta">大模型动态 · 今天</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Gemini 2.5 Pro 实验版上线，支持 100万 token</div>
-                <div class="content-meta">大模型动态 · 今天</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Mistral Small 3 可在树莓派 5 上本地运行</div>
-                <div class="content-meta">开源模型 · 今天</div>
-              </div>
-            </div>
-          </div>
-          <span class="view-all">查看完整日报 →</span>
-        </div>
-      </a>
-
-      <!-- GitHub 每日精选 -->
-      <a href="https://github.com/Raymond-Hear?tab=repositories" target="_blank" class="card-link">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <div class="card-icon github">⭐</div>
-              <span>GitHub 每日精选</span>
-            </div>
-            <span class="card-badge">每日 10:00</span>
-          </div>
-          <div class="content-list">
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">microsoft/OmniParser - 纯视觉 GUI 自动化工具</div>
-                <div class="content-meta">AI 工具 · 今日推荐</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">langchain-ai/open_deep_research - 深度研究助手</div>
-                <div class="content-meta">AI 应用 · 今日推荐</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">allenai/olmocr - PDF 内容提取工具</div>
-                <div class="content-meta">效率工具 · 今日推荐</div>
-              </div>
-            </div>
-          </div>
-          <span class="view-all">查看全部推荐 →</span>
-        </div>
-      </a>
-
-      <!-- 大咖知识库 -->
-      <a href="https://github.com/Raymond-Hear/awesome-hub" target="_blank" class="card-link">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <div class="card-icon knowledge">📚</div>
-              <span>大咖知识库</span>
-            </div>
-            <span class="card-badge">每日 09:00</span>
-          </div>
-          <div class="content-list">
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Dan Koe: The Art of Slow Productivity</div>
-                <div class="content-meta">个人成长 · 最新</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Lenny Rachitsky: Product Management Trends 2025</div>
-                <div class="content-meta">产品管理 · 最新</div>
-              </div>
-            </div>
-            <div class="content-item">
-              <div class="content-dot"></div>
-              <div class="content-text">
-                <div class="content-title">Naval: The Almanack - 更新章节</div>
-                <div class="content-meta">哲学思考 · 最新</div>
-              </div>
-            </div>
-          </div>
-          <span class="view-all">浏览知识库 →</span>
-        </div>
-      </a>
-
-      <!-- 数据统计 -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <div class="card-icon stats">📈</div>
-            <span>本周统计</span>
-          </div>
-          <span class="card-badge">实时</span>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-value">45</div>
-            <div class="stat-label">文章整理</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">28</div>
-            <div class="stat-label">GitHub 项目</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">12</div>
-            <div class="stat-label">知识库更新</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">7</div>
-            <div class="stat-label">连续运行天</div>
-          </div>
-        </div>
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">15</div>
+        <div class="stat-label">AI 文章</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">10</div>
+        <div class="stat-label">GitHub 项目</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">8</div>
+        <div class="stat-label">大咖文章</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">7</div>
+        <div class="stat-label">运行天数</div>
       </div>
     </div>
 
-    <!-- 风崽的办公室 -->
-    <section class="office-section" id="office">
-      <h2 class="section-title">
-        <span>🎮</span>
-        <span>风崽的办公室</span>
-      </h2>
-      <div class="office-container">
-        <div id="game-container">
-          <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
-          
-          <div class="area-label" style="left: 18%; top: 40%;">书房</div>
-          <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
-          <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
-          <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
-          
-          <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
-          <div id="bubble"></div>
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- AI 日报 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">📊</div>
+            <span>AI 日报</span>
+          </div>
+          <span class="section-badge">07:00 更新</span>
         </div>
-        <div id="status-bar">风崽在书房 — 帮聆风整理资料</div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://simonwillison.net/2026/Mar/05/llms-txt/" target="_blank" class="article-item">
+              <div class="article-title">LLMs.txt: 网站 AI 访问新标准</div>
+              <div class="article-meta">
+                <span class="article-tag">AI 标准</span>
+                <span>simonwillison.net</span>
+              </div>
+            </a>
+            <a href="https://simonwillison.net/2026/Mar/05/mistral-small-3/" target="_blank" class="article-item">
+              <div class="article-title">Mistral Small 3 树莓派 5 本地运行指南</div>
+              <div class="article-meta">
+                <span class="article-tag">开源模型</span>
+                <span>simonwillison.net</span>
+              </div>
+            </a>
+            <a href="https://daringfireball.net/" target="_blank" class="article-item">
+              <div class="article-title">Apple Intelligence 春季更新传闻</div>
+              <div class="article-meta">
+                <span class="article-tag">Apple</span>
+                <span>daringfireball.net</span>
+              </div>
+            </a>
+            <a href="https://idiallo.com/" target="_blank" class="article-item">
+              <div class="article-title">初级开发者正在消失（这是个问题）</div>
+              <div class="article-meta">
+                <span class="article-tag">行业观察</span>
+                <span>idiallo.com</span>
+              </div>
+            </a>
+          </div>
+          <a href="/archive.html#daily" class="view-all">
+            <span>查看全部日报</span>
+            <span>→</span>
+          </a>
+        </div>
       </div>
-    </section>
+
+      <!-- GitHub 精选 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">⭐</div>
+            <span>GitHub 精选</span>
+          </div>
+          <span class="section-badge">10:00 更新</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://github.com/microsoft/OmniParser" target="_blank" class="github-item">
+              <div class="github-icon">🖥️</div>
+              <div class="github-info">
+                <div class="github-header">
+                  <span class="github-name">microsoft/OmniParser</span>
+                  <span class="github-stars">⭐ 15.2k</span>
+                </div>
+                <div class="github-desc">纯视觉 GUI 自动化工具，可解析屏幕内容并执行操作</div>
+              </div>
+            </a>
+            <a href="https://github.com/langchain-ai/open_deep_research" target="_blank" class="github-item">
+              <div class="github-icon">🔍</div>
+              <div class="github-info">
+                <div class="github-header">
+                  <span class="github-name">langchain-ai/open_deep_research</span>
+                  <span class="github-stars">⭐ 8.5k</span>
+                </div>
+                <div class="github-desc">开源深度研究助手，自动化信息收集与分析</div>
+              </div>
+            </a>
+            <a href="https://github.com/allenai/olmocr" target="_blank" class="github-item">
+              <div class="github-icon">📄</div>
+              <div class="github-info">
+                <div class="github-header">
+                  <span class="github-name">allenai/olmocr</span>
+                  <span class="github-stars">⭐ 5.3k</span>
+                </div>
+                <div class="github-desc">PDF 内容提取工具，保持格式和结构</div>
+              </div>
+            </a>
+            <a href="https://github.com/n8n-io/n8n" target="_blank" class="github-item">
+              <div class="github-icon">⚡</div>
+              <div class="github-info">
+                <div class="github-header">
+                  <span class="github-name">n8n-io/n8n</span>
+                  <span class="github-stars">⭐ 176.5k</span>
+                </div>
+                <div class="github-desc">自动化工作流平台，400+ 集成</div>
+              </div>
+            </a>
+          </div>
+          <a href="/archive.html#github" class="view-all">
+            <span>查看全部推荐</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="footer-links">
+      <a href="/">今日</a>
+      <a href="/archive.html">归档</a>
       <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
-      <a href="https://hxwd.feishu.cn/wiki/" target="_blank">飞书知识库</a>
     </div>
-    <p>风崽的工作台 · 为聆风服务 🐾 · 最后更新：2026年3月5日</p>
+    <p>🦞 龙虾工作台 · 每日自动更新 · 为聆风服务</p>
   </footer>
 
   <script>
-    const AREAS = {
-      study: { x: 18, y: 45, name: '书房', task: '帮聆风整理资料' },
-      livingroom: { x: 31, y: 78, name: '客厅', task: '待命中' },
-      kitchen: { x: 68, y: 45, name: '厨房', task: '准备定时任务' },
-      balcony: { x: 77, y: 78, name: '阳台', task: '学习中' }
-    };
-
-    const BUBBLE_TEXTS = {
-      study: ['帮聆风整理资料', '写代码中', '马上搞定', '在思考'],
-      livingroom: ['等聆风吩咐', '随时待命', '休息中', '准备开工'],
-      kitchen: ['生成日报中', '抓取GitHub项目', '定时任务中', 'AI处理中'],
-      balcony: ['读文章学习', '研究新技能', '充电中', '自我升级中']
-    };
-
-    const avatar = document.getElementById('avatar');
-    const statusBar = document.getElementById('status-bar');
-    const bubble = document.getElementById('bubble');
-    const container = document.getElementById('game-container');
-
-    let currentArea = 'study';
-
-    function getPixelPosition(area) {
-      const rect = container.getBoundingClientRect();
-      return {
-        x: (area.x / 100) * rect.width,
-        y: (area.y / 100) * rect.height
-      };
-    }
-
-    function updateStatus() {
-      const hour = new Date().getHours();
-      const minute = new Date().getMinutes();
-      
-      let newArea = 'livingroom';
-      
-      if ((hour === 7 || hour === 8) && minute < 35) {
-        newArea = 'kitchen';
-      } else if (hour === 10 && minute < 35) {
-        newArea = 'kitchen';
-      } else if ((hour === 12 || hour === 18) && minute < 35) {
-        newArea = 'kitchen';
-      } else if (hour >= 9 && hour <= 18) {
-        newArea = 'study';
-      } else {
-        newArea = 'livingroom';
-      }
-      
-      if (newArea !== currentArea) {
-        currentArea = newArea;
-        moveToArea(currentArea);
-      }
-    }
-
-    function moveToArea(areaName) {
-      const area = AREAS[areaName];
-      const pos = getPixelPosition(area);
-      
-      const offsetX = (Math.random() - 0.5) * 40;
-      const offsetY = (Math.random() - 0.5) * 30;
-      
-      avatar.style.left = (pos.x + offsetX) + 'px';
-      avatar.style.top = (pos.y + offsetY) + 'px';
-      statusBar.textContent = `风崽在${area.name} — ${area.task}`;
-      
-      showBubble();
-    }
-
-    function showBubble() {
-      const texts = BUBBLE_TEXTS[currentArea];
-      const text = texts[Math.floor(Math.random() * texts.length)];
-      const pos = getPixelPosition(AREAS[currentArea]);
-      
-      bubble.textContent = text;
-      bubble.style.left = (pos.x + 20) + 'px';
-      bubble.style.top = (pos.y - 50) + 'px';
-      bubble.style.display = 'block';
-      
-      setTimeout(() => {
-        bubble.style.display = 'none';
-      }, 3000);
-    }
-
-    function init() {
-      const area = AREAS[currentArea];
-      const pos = getPixelPosition(area);
-      avatar.style.left = pos.x + 'px';
-      avatar.style.top = pos.y + 'px';
-      statusBar.textContent = `风崽在${area.name} — ${area.task}`;
-      
-      window.addEventListener('resize', () => {
-        moveToArea(currentArea);
-      });
-      
-      setInterval(updateStatus, 30000);
-      setTimeout(showBubble, 2000);
-    }
-
-    window.addEventListener('load', init);
+    // 设置当前日期
+    const dateEl = document.getElementById('current-date');
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    dateEl.textContent = now.toLocaleDateString('zh-CN', options);
   </script>
 </body>
 </html>
