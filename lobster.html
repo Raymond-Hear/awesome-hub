@@ -4,27 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>风崽的办公室 | 龙虾工作台</title>
-  <meta name="description" content="风崽的实时工作状态 - AI助手的像素办公室">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #6750a4;
       --primary-container: #eaddff;
-      --on-primary: #ffffff;
-      --on-primary-container: #21005d;
-      --secondary: #625b71;
-      --secondary-container: #e8def8;
       --surface: #fef7ff;
-      --surface-variant: #e7e0ec;
       --background: #fffbfe;
       --on-surface: #1c1b1f;
-      --on-surface-variant: #49454f;
-      --outline: #79747e;
       --outline-variant: #cab6d0;
-      --shadow: rgba(0,0,0,0.1);
-      --radius-sm: 8px;
-      --radius-md: 16px;
       --radius-lg: 28px;
       --radius-xl: 32px;
     }
@@ -32,7 +19,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--background);
       color: var(--on-surface);
       line-height: 1.6;
@@ -41,15 +28,12 @@
     .header {
       background: var(--surface);
       border-bottom: 1px solid var(--outline-variant);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 1rem 1.5rem;
     }
     
     .header-content {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -69,31 +53,11 @@
       width: 44px;
       height: 44px;
       background: var(--primary-container);
-      border-radius: var(--radius-md);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .nav-links a {
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius-lg);
-      color: var(--on-surface-variant);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    
-    .nav-links a:hover, .nav-links a.active {
-      background: var(--secondary-container);
-      color: var(--on-surface);
     }
     
     .main {
@@ -102,24 +66,57 @@
       padding: 2rem 1.5rem;
     }
     
-    .page-header {
+    /* Login */
+    .login-box {
+      max-width: 400px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-xl);
       text-align: center;
-      margin-bottom: 2rem;
     }
     
-    .page-header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--on-surface);
+    .login-box h2 {
       margin-bottom: 0.5rem;
     }
     
-    .page-header p {
-      color: var(--on-surface-variant);
+    .login-box p {
+      color: #666;
+      margin-bottom: 1.5rem;
     }
     
-    /* Pixel Office */
-    .office-container {
+    .login-box input {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .login-box button {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .error {
+      color: #dc2626;
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    /* Protected */
+    .protected { display: none; }
+    
+    .office-box {
       background: var(--surface);
       border: 1px solid var(--outline-variant);
       border-radius: var(--radius-xl);
@@ -127,7 +124,7 @@
       margin-bottom: 2rem;
     }
     
-    #game-container {
+    #game-box {
       position: relative;
       width: 100%;
       max-width: 700px;
@@ -136,7 +133,6 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 2px solid var(--outline-variant);
     }
     
     #home-bg {
@@ -153,7 +149,6 @@
       background: rgba(0, 0, 0, 0.7);
       padding: 6px 12px;
       border-radius: 20px;
-      pointer-events: none;
       font-weight: 600;
     }
     
@@ -161,7 +156,7 @@
       position: absolute;
       width: 48px;
       height: 48px;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.6s ease;
       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
       z-index: 10;
     }
@@ -176,46 +171,27 @@
       border: 2px solid var(--primary);
       display: none;
       white-space: nowrap;
-      z-index: 20;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-    
-    #bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid var(--primary);
+      z-index: 20;
     }
     
     #status-bar {
       text-align: center;
       margin-top: 1.5rem;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       background: var(--primary-container);
       border-radius: var(--radius-lg);
-      color: var(--on-primary-container);
       font-weight: 600;
     }
     
-    /* Stats Cards */
-    .stats-grid {
+    .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
     }
     
-    @media (max-width: 600px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      #game-container { height: 300px; }
-    }
-    
-    .stat-card {
+    .stat-box {
       background: var(--surface);
       border: 1px solid var(--outline-variant);
       border-radius: var(--radius-lg);
@@ -223,84 +199,20 @@
       text-align: center;
     }
     
-    .stat-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .stat-value {
+    .stat-box .num {
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--primary);
     }
     
-    .stat-label {
+    .stat-box .label {
       font-size: 0.85rem;
-      color: var(--on-surface-variant);
+      color: #666;
     }
     
-    /* Activity Log */
-    .activity-section {
-      background: var(--surface);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-xl);
-      padding: 1.5rem;
-    }
-    
-    .activity-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    
-    .activity-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    
-    .activity-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--surface-variant);
-      border-radius: var(--radius-md);
-    }
-    
-    .activity-time {
-      font-size: 0.8rem;
-      color: var(--on-surface-variant);
-      min-width: 60px;
-    }
-    
-    .activity-content {
-      flex: 1;
-    }
-    
-    .activity-title {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-    
-    .activity-desc {
-      font-size: 0.85rem;
-      color: var(--on-surface-variant);
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 3rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 1px solid var(--outline-variant);
-    }
-    
-    .footer p {
-      color: var(--on-surface-variant);
-      font-size: 0.9rem;
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: 1fr; }
+      #game-box { height: 300px; }
     }
   </style>
 </head>
@@ -311,107 +223,77 @@
         <div class="logo-icon">🦞</div>
         <span>龙虾工作台</span>
       </a>
-      <nav class="nav-links">
-        <a href="./">今日</a>
-        <a href="./archive.html">归档</a>
-        <a href="./lobster.html" class="active">风崽状态</a>
-        <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
-      </nav>
     </div>
   </header>
 
   <main class="main">
-    <div class="page-header">
-      <h1>🦞 风崽的办公室</h1>
-      <p>实时查看风崽的工作状态和位置</p>
+    <!-- Login -->
+    <div id="login-box" class="login-box">
+      <h2>🔒 私密空间</h2>
+      <p>请输入密码查看风崽的办公室</p>
+      <input type="password" id="password" placeholder="输入密码">
+      <button onclick="checkPassword()">进入</button>
+      <div id="error" class="error">密码错误</div>
     </div>
 
-    <!-- 像素办公室 -->
-    <div class="office-container">
-      <div id="game-container">
-        <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
-        
-        <div class="area-label" style="left: 18%; top: 40%;">书房</div>
-        <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
-        <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
-        <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
-        
-        <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
-        <div id="bubble"></div>
+    <!-- Protected Content -->
+    <div id="protected" class="protected">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h1>🦞 风崽的办公室</h1>
+        <p style="color: #666;">实时查看风崽的工作状态和位置</p>
       </div>
-      <div id="status-bar">🦞 风崽在书房 — 帮聆风整理资料</div>
-    </div>
 
-    <!-- 统计 -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">📊</div>
-        <div class="stat-value">45</div>
-        <div class="stat-label">今日处理文章</div>
+      <div class="office-box">
+        <div id="game-box">
+          <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
+          <div class="area-label" style="left: 18%; top: 40%;">书房</div>
+          <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
+          <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
+          <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
+          <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
+          <div id="bubble"></div>
+        </div>
+        <div id="status-bar">🦞 风崽在书房 — 帮聆风整理资料</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏱️</div>
-        <div class="stat-value">8.5</div>
-        <div class="stat-label">工作时长(小时)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">✅</div>
-        <div class="stat-value">12</div>
-        <div class="stat-label">完成任务</div>
-      </div>
-    </div>
 
-    <!-- 活动日志 -->
-    <div class="activity-section">
-      <div class="activity-header">
-        <span>📋</span>
-        <span>今日活动日志</span>
-      </div>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div class="activity-time">07:00</div>
-          <div class="activity-content">
-            <div class="activity-title">生成 AI 日报</div>
-            <div class="activity-desc">抓取 90+ 技术博客，筛选 15 篇高质量文章</div>
-          </div>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="num">45</div>
+          <div class="label">今日处理文章</div>
         </div>
-        <div class="activity-item">
-          <div class="activity-time">07:30</div>
-          <div class="activity-content">
-            <div class="activity-title">推送到飞书</div>
-            <div class="activity-desc">日报已同步到飞书文档</div>
-          </div>
+        <div class="stat-box">
+          <div class="num">8.5</div>
+          <div class="label">工作时长(小时)</div>
         </div>
-        <div class="activity-item">
-          <div class="activity-time">09:00</div>
-          <div class="activity-content">
-            <div class="activity-title">大咖知识库更新</div>
-            <div class="activity-desc">抓取 Dan Koe、Lenny、Naval 最新文章</div>
-          </div>
-        </div>
-        <div class="activity-item">
-          <div class="activity-time">10:00</div>
-          <div class="activity-content">
-            <div class="activity-title">GitHub 每日推荐</div>
-            <div class="activity-desc">基于聆风兴趣筛选 10 个开源项目</div>
-          </div>
-        </div>
-        <div class="activity-item">
-          <div class="activity-time">20:45</div>
-          <div class="activity-content">
-            <div class="activity-title">更新网站</div>
-            <div class="activity-desc">部署新设计到 GitHub Pages</div>
-          </div>
+        <div class="stat-box">
+          <div class="num">12</div>
+          <div class="label">完成任务</div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="footer">
-    <p>🦞 龙虾工作台 · 每日自动更新 · 为<a href="https://github.com/ythx-101" target="_blank" style="color: var(--primary); text-decoration: none;">聆风</a>服务</p>
-  </footer>
-
   <script>
+    // Password protection
+    const CORRECT_PASSWORD = 'lingfeng2026';
+    
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      if (input === CORRECT_PASSWORD) {
+        document.getElementById('login-box').style.display = 'none';
+        document.getElementById('protected').style.display = 'block';
+        initOffice();
+      } else {
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+    
+    // Allow Enter key
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+    
+    // Office animation
     const AREAS = {
       study: { x: 18, y: 45, name: '书房', task: '帮聆风整理资料' },
       livingroom: { x: 31, y: 78, name: '客厅', task: '待命中' },
@@ -426,90 +308,48 @@
       balcony: ['读文章学习', '研究新技能', '充电中', '自我升级中']
     };
 
-    const avatar = document.getElementById('avatar');
-    const statusBar = document.getElementById('status-bar');
-    const bubble = document.getElementById('bubble');
-    const container = document.getElementById('game-container');
-
     let currentArea = 'study';
 
     function getPixelPosition(area) {
-      const rect = container.getBoundingClientRect();
+      const box = document.getElementById('game-box').getBoundingClientRect();
       return {
-        x: (area.x / 100) * rect.width,
-        y: (area.y / 100) * rect.height
+        x: (area.x / 100) * box.width,
+        y: (area.y / 100) * box.height
       };
-    }
-
-    function updateStatus() {
-      const hour = new Date().getHours();
-      const minute = new Date().getMinutes();
-      
-      let newArea = 'livingroom';
-      
-      if ((hour === 7 || hour === 8) && minute < 35) {
-        newArea = 'kitchen';
-      } else if (hour === 10 && minute < 35) {
-        newArea = 'kitchen';
-      } else if ((hour === 12 || hour === 18) && minute < 35) {
-        newArea = 'kitchen';
-      } else if (hour >= 9 && hour <= 18) {
-        newArea = 'study';
-      } else {
-        newArea = 'livingroom';
-      }
-      
-      if (newArea !== currentArea) {
-        currentArea = newArea;
-        moveToArea(currentArea);
-      }
     }
 
     function moveToArea(areaName) {
       const area = AREAS[areaName];
       const pos = getPixelPosition(area);
-      
       const offsetX = (Math.random() - 0.5) * 40;
       const offsetY = (Math.random() - 0.5) * 30;
       
-      avatar.style.left = (pos.x + offsetX) + 'px';
-      avatar.style.top = (pos.y + offsetY) + 'px';
-      statusBar.textContent = `🦞 风崽在${area.name} — ${area.task}`;
-      
-      showBubble();
+      document.getElementById('avatar').style.left = (pos.x + offsetX) + 'px';
+      document.getElementById('avatar').style.top = (pos.y + offsetY) + 'px';
+      document.getElementById('status-bar').textContent = `🦞 风崽在${area.name} — ${area.task}`;
     }
 
-    function showBubble() {
-      const texts = BUBBLE_TEXTS[currentArea];
-      const text = texts[Math.floor(Math.random() * texts.length)];
-      const pos = getPixelPosition(AREAS[currentArea]);
-      
-      bubble.textContent = text;
-      bubble.style.left = (pos.x + 20) + 'px';
-      bubble.style.top = (pos.y - 50) + 'px';
-      bubble.style.display = 'block';
-      
-      setTimeout(() => {
-        bubble.style.display = 'none';
-      }, 3000);
-    }
-
-    function init() {
+    function initOffice() {
       const area = AREAS[currentArea];
       const pos = getPixelPosition(area);
-      avatar.style.left = pos.x + 'px';
-      avatar.style.top = pos.y + 'px';
-      statusBar.textContent = `🦞 风崽在${area.name} — ${area.task}`;
+      document.getElementById('avatar').style.left = pos.x + 'px';
+      document.getElementById('avatar').style.top = pos.y + 'px';
       
-      window.addEventListener('resize', () => {
-        moveToArea(currentArea);
-      });
+      window.addEventListener('resize', () => moveToArea(currentArea));
       
-      setInterval(updateStatus, 30000);
-      setTimeout(showBubble, 2000);
+      // Update based on time
+      setInterval(() => {
+        const hour = new Date().getHours();
+        let newArea = 'livingroom';
+        if (hour >= 9 && hour <= 18) newArea = 'study';
+        if (hour === 7 || hour === 10 || hour === 12 || hour === 18) newArea = 'kitchen';
+        
+        if (newArea !== currentArea) {
+          currentArea = newArea;
+          moveToArea(currentArea);
+        }
+      }, 30000);
     }
-
-    window.addEventListener('load', init);
   </script>
 </body>
 </html>

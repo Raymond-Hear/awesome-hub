@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Daily - March 5, 2026 | 龙虾工作台</title>
+  <style>
+    :root {
+      --primary: #6750a4;
+      --primary-container: #eaddff;
+      --surface: #fef7ff;
+      --background: #fffbfe;
+      --on-surface: #1c1b1f;
+      --outline-variant: #cab6d0;
+      --radius-lg: 28px;
+      --radius-xl: 32px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--on-surface);
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: 1rem 1.5rem;
+    }
+    
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-container);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .back-link {
+      color: #666;
+      text-decoration: none;
+    }
+    
+    .main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    .page-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    
+    .page-header h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .page-header p {
+      color: #666;
+    }
+    
+    .repo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .repo-item {
+      display: block;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    
+    .repo-item:hover {
+      border-color: var(--primary);
+    }
+    
+    .repo-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .repo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-container);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .repo-info h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .repo-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    .repo-desc {
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+    
+    .repo-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .repo-tag {
+      padding: 0.25rem 0.75rem;
+      background: var(--primary-container);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--outline-variant);
+    }
+    
+    .nav-links a {
+      padding: 0.75rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: var(--on-surface);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--outline-variant);
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="./" class="logo">
+        <div class="logo-icon">🦞</div>
+        <span>龙虾工作台</span>
+      </a>
+      <a href="./archive.html" class="back-link">← 返回归档</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <h1>⭐ GitHub Daily - March 5, 2026</h1>
+      <p>每日精选开源项目推荐</p>
+    </div>
+
+    <div class="repo-list">
+      <a href="https://github.com/microsoft/OmniParser" target="_blank" class="repo-item">
+        <div class="repo-header">
+          <div class="repo-icon">🖥️</div>
+          <div class="repo-info">
+            <h3>microsoft/OmniParser</h3>
+            <div class="repo-stats">
+              <span>⭐ 15.2k</span>
+              <span>🍴 1.2k</span>
+              <span>Python</span>
+            </div>
+          </div>
+        </div>
+        <div class="repo-desc">纯视觉 GUI 自动化工具，可解析屏幕内容并执行操作。适用于自动化测试、RPA 场景。</div>
+        <div class="repo-tags">
+          <span class="repo-tag">AI 工具</span>
+          <span class="repo-tag">自动化</span>
+          <span class="repo-tag">微软</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/langchain-ai/open_deep_research" target="_blank" class="repo-item">
+        <div class="repo-header">
+          <div class="repo-icon">🔍</div>
+          <div class="repo-info">
+            <h3>langchain-ai/open_deep_research</h3>
+            <div class="repo-stats">
+              <span>⭐ 8.5k</span>
+              <span>🍴 890</span>
+              <span>Python</span>
+            </div>
+          </div>
+        </div>
+        <div class="repo-desc">开源深度研究助手，自动化信息收集与分析。基于 LangChain 构建，支持多轮搜索和报告生成。</div>
+        <div class="repo-tags">
+          <span class="repo-tag">AI 应用</span>
+          <span class="repo-tag">研究工具</span>
+          <span class="repo-tag">LangChain</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/allenai/olmocr" target="_blank" class="repo-item">
+        <div class="repo-header">
+          <div class="repo-icon">📄</div>
+          <div class="repo-info">
+            <h3>allenai/olmocr</h3>
+            <div class="repo-stats">
+              <span>⭐ 5.3k</span>
+              <span>🍴 420</span>
+              <span>Python</span>
+            </div>
+          </div>
+        </div>
+        <div class="repo-desc">PDF 内容提取工具，保持格式和结构。Allen AI 出品，适合文档处理和数据提取场景。</div>
+        <div class="repo-tags">
+          <span class="repo-tag">PDF 处理</span>
+          <span class="repo-tag">OCR</span>
+          <span class="repo-tag">文档工具</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/n8n-io/n8n" target="_blank" class="repo-item">
+        <div class="repo-header">
+          <div class="repo-icon">⚡</div>
+          <div class="repo-info">
+            <h3>n8n-io/n8n</h3>
+            <div class="repo-stats">
+              <span>⭐ 176.5k</span>
+              <span>🍴 12.8k</span>
+              <span>TypeScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="repo-desc">自动化工作流平台，400+ 集成。开源版 Zapier，适合构建自动化流程和数据管道。</div>
+        <div class="repo-tags">
+          <span class="repo-tag">自动化</span>
+          <span class="repo-tag">工作流</span>
+          <span class="repo-tag">低代码</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/grafana/grafana" target="_blank" class="repo-item">
+        <div class="repo-header">
+          <div class="repo-icon">📊</div>
+          <div class="repo-info">
+            <h3>grafana/grafana</h3>
+            <div class="repo-stats">
+              <span>⭐ 72.4k</span>
+              <span>🍴 11.2k</span>
+              <span>TypeScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="repo-desc">数据可视化平台，可用于监控、分析和展示数据。支持多种数据源，适合课程演示效果增强。</div>
+        <div class="repo-tags">
+          <span class="repo-tag">可视化</span>
+          <span class="repo-tag">监控</span>
+          <span class="repo-tag">数据分析</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <a href="./github/2026-03-04.html">← 上一期</a>
+      <a href="./github/2026-03-06.html">下一期 →</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🦞 龙虾工作台 · 每日自动更新 · 为<a href="https://github.com/ythx-101" target="_blank" style="color: var(--primary);">聆风</a>服务</p>
+  </footer>
+</body>
+</html>
