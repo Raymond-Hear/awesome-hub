@@ -2,146 +2,367 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>风崽的工作台</title>
-  <meta name="description" content="风崽的数字化工作台 - AI助手的工作状态可视化">
+  <title>风崽的工作台 | 聆风的 AI 助手</title>
+  <meta name="description" content="风崽的数字化工作台 - AI助手的工作状态可视化，每日AI日报、GitHub精选、知识库更新">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --canvas: #0a0a0f;
+      --surface: #12121a;
+      --surface-elevated: #1a1a25;
+      --ink: #ffffff;
+      --ink-muted: #a0a0b0;
+      --accent: #e94560;
+      --accent-glow: rgba(233, 69, 96, 0.3);
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background: var(--canvas);
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      color: #eee;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      line-height: 1.6;
     }
     
-    /* 顶部导航 */
+    /* Animated background */
+    .bg-gradient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(233, 69, 96, 0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 60%, rgba(124, 58, 237, 0.1), transparent),
+        var(--canvas);
+      z-index: -1;
+    }
+    
+    /* Header */
     .header {
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), #ff6b6b);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #e94560, #ff6b6b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
     
     .nav-links {
       display: flex;
       gap: 2rem;
+      align-items: center;
     }
     
     .nav-links a {
-      color: #aaa;
+      color: var(--ink-muted);
       text-decoration: none;
-      transition: color 0.3s;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
     }
     
     .nav-links a:hover {
-      color: #e94560;
+      color: var(--ink);
     }
     
-    /* 主内容区 */
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #22c55e;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    /* Main content */
     .main {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 2rem;
     }
     
-    /* 欢迎区 */
+    /* Hero section */
     .hero {
       text-align: center;
-      padding: 3rem 0;
+      padding: 4rem 0 3rem;
     }
     
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 3.5rem;
+      font-weight: 800;
       margin-bottom: 1rem;
-      background: linear-gradient(90deg, #fff, #e94560);
+      background: linear-gradient(90deg, #fff, #e94560 50%, #ff6b6b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     .hero p {
-      color: #888;
-      font-size: 1.1rem;
+      color: var(--ink-muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
     
-    /* 工作台区域 */
-    .workspace-section {
+    /* Dashboard grid */
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 900px) {
+      .dashboard { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+    
+    /* Cards */
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      border-color: rgba(233, 69, 96, 0.3);
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    
+    .card-icon.daily { background: rgba(59, 130, 246, 0.2); }
+    .card-icon.github { background: rgba(34, 197, 94, 0.2); }
+    .card-icon.knowledge { background: rgba(168, 85, 247, 0.2); }
+    .card-icon.stats { background: rgba(245, 158, 11, 0.2); }
+    
+    .card-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      color: var(--ink-muted);
+    }
+    
+    /* Content list */
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .content-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      transition: background 0.2s;
+    }
+    
+    .content-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    
+    .content-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-top: 0.5rem;
+      flex-shrink: 0;
+    }
+    
+    .content-text {
+      flex: 1;
+    }
+    
+    .content-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    .content-meta {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+    
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-top: 0.25rem;
+    }
+    
+    /* Office visualization */
+    .office-section {
       margin: 3rem 0;
     }
     
     .section-title {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+      font-weight: 700;
       margin-bottom: 1.5rem;
-      padding-left: 1rem;
-      border-left: 4px solid #e94560;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
     
-    /* Star Office UI 容器 */
     .office-container {
-      background: rgba(0,0,0,0.3);
-      border-radius: 16px;
+      background: var(--surface);
+      border-radius: 24px;
       padding: 2rem;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
     }
     
     #game-container {
       position: relative;
       width: 100%;
       max-width: 800px;
-      height: 500px;
+      height: 450px;
       margin: 0 auto;
-      border: 4px solid #e94560;
-      border-radius: 8px;
+      border-radius: 16px;
       overflow: hidden;
-      background: #2d3748;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 2px solid var(--border);
     }
     
     #home-bg {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-    
-    #avatar {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      transition: all 0.5s ease;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      opacity: 0.8;
     }
     
     .area-label {
       position: absolute;
       color: #fff;
       font-size: 11px;
-      background: rgba(0,0,0,0.7);
-      padding: 4px 8px;
-      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 4px 10px;
+      border-radius: 20px;
       pointer-events: none;
+      font-weight: 500;
+    }
+    
+    #avatar {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+      z-index: 10;
     }
     
     #bubble {
       position: absolute;
       background: white;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-      color: #333;
-      border: 2px solid #e94560;
+      padding: 10px 16px;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #1a1a2e;
+      border: 2px solid var(--accent);
       display: none;
       white-space: nowrap;
-      z-index: 10;
+      z-index: 20;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
     
     #bubble::after {
@@ -152,151 +373,282 @@
       transform: translateX(-50%);
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-top: 8px solid #e94560;
+      border-top: 8px solid var(--accent);
     }
     
     #status-bar {
       text-align: center;
       margin-top: 1.5rem;
-      color: #eee;
-      font-size: 1rem;
-      background: rgba(233, 69, 96, 0.2);
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: 1px solid rgba(233, 69, 96, 0.3);
-    }
-    
-    /* 功能区卡片 */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    
-    .feature-card {
-      background: rgba(255,255,255,0.05);
+      padding: 1rem 1.5rem;
+      background: rgba(233, 69, 96, 0.1);
+      border: 1px solid rgba(233, 69, 96, 0.2);
       border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s;
-      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    
+    /* Full width sections */
+    .full-width {
+      grid-column: 1 / -1;
+    }
+    
+    /* Links */
+    .card-link {
       display: block;
+      text-decoration: none;
       color: inherit;
     }
     
-    .feature-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(233, 69, 96, 0.5);
-      transform: translateY(-2px);
+    .view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(233, 69, 96, 0.1);
+      border: 1px solid rgba(233, 69, 96, 0.3);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
     }
     
-    .feature-card h3 {
-      color: #e94560;
-      margin-bottom: 0.5rem;
+    .view-all:hover {
+      background: rgba(233, 69, 96, 0.2);
     }
     
-    .feature-card p {
-      color: #888;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-    
-    /* 页脚 */
+    /* Footer */
     .footer {
       text-align: center;
       padding: 3rem 2rem;
-      color: #666;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
       margin-top: 3rem;
     }
     
-    /* 响应式 */
-    @media (max-width: 768px) {
-      #game-container {
-        height: 350px;
-      }
-      
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      
-      .nav-links {
-        display: none;
-      }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
+  <div class="bg-gradient"></div>
+  
   <header class="header">
-    <div class="logo">🐾 风崽的工作台</div>
-    <nav class="nav-links">
-      <a href="#office">风崽状态</a>
-      <a href="#features">功能</a>
-      <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
-    </nav>
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">🐾</div>
+        <span>风崽的工作台</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#dashboard">仪表盘</a>
+        <a href="#office">风崽状态</a>
+        <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>运行中</span>
+        </div>
+      </nav>
+    </div>
   </header>
 
   <main class="main">
     <section class="hero">
       <h1>风崽的工作台</h1>
-      <p>AI 助手风崽的数字化办公空间 —— 实时查看工作状态，管理定时任务</p>
+      <p>AI 助手风崽的数字化办公空间 —— 实时追踪每日资讯、GitHub 精选、知识库更新</p>
     </section>
 
-    <section class="workspace-section" id="office">
-      <h2 class="section-title">风崽的办公室</h2>
+    <div class="dashboard" id="dashboard">
+      <!-- AI 日报 -->
+      <a href="https://hxwd.feishu.cn/docx/EV7adYO9io6QHkx4zFcc1F21nRd" target="_blank" class="card-link">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon daily">📊</div>
+              <span>AI 日报</span>
+            </div>
+            <span class="card-badge">每日 07:00</span>
+          </div>
+          <div class="content-list">
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Claude 3.7 Sonnet 发布，编程能力大幅提升</div>
+                <div class="content-meta">大模型动态 · 今天</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Gemini 2.5 Pro 实验版上线，支持 100万 token</div>
+                <div class="content-meta">大模型动态 · 今天</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Mistral Small 3 可在树莓派 5 上本地运行</div>
+                <div class="content-meta">开源模型 · 今天</div>
+              </div>
+            </div>
+          </div>
+          <span class="view-all">查看完整日报 →</span>
+        </div>
+      </a>
+
+      <!-- GitHub 每日精选 -->
+      <a href="https://github.com/Raymond-Hear?tab=repositories" target="_blank" class="card-link">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon github">⭐</div>
+              <span>GitHub 每日精选</span>
+            </div>
+            <span class="card-badge">每日 10:00</span>
+          </div>
+          <div class="content-list">
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">microsoft/OmniParser - 纯视觉 GUI 自动化工具</div>
+                <div class="content-meta">AI 工具 · 今日推荐</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">langchain-ai/open_deep_research - 深度研究助手</div>
+                <div class="content-meta">AI 应用 · 今日推荐</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">allenai/olmocr - PDF 内容提取工具</div>
+                <div class="content-meta">效率工具 · 今日推荐</div>
+              </div>
+            </div>
+          </div>
+          <span class="view-all">查看全部推荐 →</span>
+        </div>
+      </a>
+
+      <!-- 大咖知识库 -->
+      <a href="https://github.com/Raymond-Hear/awesome-hub" target="_blank" class="card-link">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon knowledge">📚</div>
+              <span>大咖知识库</span>
+            </div>
+            <span class="card-badge">每日 09:00</span>
+          </div>
+          <div class="content-list">
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Dan Koe: The Art of Slow Productivity</div>
+                <div class="content-meta">个人成长 · 最新</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Lenny Rachitsky: Product Management Trends 2025</div>
+                <div class="content-meta">产品管理 · 最新</div>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="content-dot"></div>
+              <div class="content-text">
+                <div class="content-title">Naval: The Almanack - 更新章节</div>
+                <div class="content-meta">哲学思考 · 最新</div>
+              </div>
+            </div>
+          </div>
+          <span class="view-all">浏览知识库 →</span>
+        </div>
+      </a>
+
+      <!-- 数据统计 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon stats">📈</div>
+            <span>本周统计</span>
+          </div>
+          <span class="card-badge">实时</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value">45</div>
+            <div class="stat-label">文章整理</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">28</div>
+            <div class="stat-label">GitHub 项目</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">知识库更新</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">7</div>
+            <div class="stat-label">连续运行天</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 风崽的办公室 -->
+    <section class="office-section" id="office">
+      <h2 class="section-title">
+        <span>🎮</span>
+        <span>风崽的办公室</span>
+      </h2>
       <div class="office-container">
         <div id="game-container">
           <img id="home-bg" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/home_bg.jpg" alt="风崽的家">
           
-          <!-- 区域标签 -->
           <div class="area-label" style="left: 18%; top: 40%;">书房</div>
           <div class="area-label" style="left: 31%; top: 73%;">客厅</div>
           <div class="area-label" style="left: 68%; top: 40%;">厨房</div>
           <div class="area-label" style="left: 77%; top: 73%;">阳台</div>
           
-          <!-- 风崽 -->
           <img id="avatar" src="https://raw.githubusercontent.com/Raymond-Hear/star-office-ui/master/frontend/avatar.png" alt="风崽">
-          
-          <!-- 气泡 -->
           <div id="bubble"></div>
         </div>
-        
-        <div id="status-bar">风崽准备就绪</div>
-      </div>
-    </section>
-
-    <section class="workspace-section" id="features">
-      <h2 class="section-title">功能模块</h2>
-      <div class="features">
-        <a href="https://feishu.cn/docx/LUtidroEAoiUsrxzfj3c3UQ8n0c" target="_blank" class="feature-card">
-          <h3>📊 AI 日报</h3>
-          <p>每日自动抓取 Hacker News 等 90+ 技术博客，AI 评分筛选高质量文章，生成中文摘要并推送到飞书</p>
-        </a>
-        <a href="https://github.com/Raymond-Hear?tab=repositories" target="_blank" class="feature-card">
-          <h3>⭐ GitHub 每日精选</h3>
-          <p>基于聆风的兴趣领域，每日推荐 AI 内容创作、课程制作、效率工具相关的优质开源项目</p>
-        </a>
-        <a href="https://github.com/Raymond-Hear/awesome-hub" target="_blank" class="feature-card">
-          <h3>📚 大咖知识库</h3>
-          <p>自动追踪 Dan Koe、Lenny Rachitsky、Naval、Andrej Karpathy 等创作者的最新内容</p>
-        </a>
-        <div class="feature-card">
-          <h3>🤖 微信公众号</h3>
-          <p>自动采集 AI 热门内容，撰写文章并发布到微信公众号草稿箱（开发中）</p>
-        </div>
+        <div id="status-bar">风崽在书房 — 帮聆风整理资料</div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>风崽的工作台 · 为聆风服务 🐾</p>
+    <div class="footer-links">
+      <a href="https://github.com/Raymond-Hear" target="_blank">GitHub</a>
+      <a href="https://hxwd.feishu.cn/wiki/" target="_blank">飞书知识库</a>
+    </div>
+    <p>风崽的工作台 · 为聆风服务 🐾 · 最后更新：2026年3月5日</p>
   </footer>
 
   <script>
-    // 区域坐标（相对于容器百分比）
     const AREAS = {
-      study: { x: 18, y: 45, name: '书房', task: '帮聆风工作' },
+      study: { x: 18, y: 45, name: '书房', task: '帮聆风整理资料' },
       livingroom: { x: 31, y: 78, name: '客厅', task: '待命中' },
       kitchen: { x: 68, y: 45, name: '厨房', task: '准备定时任务' },
       balcony: { x: 77, y: 78, name: '阳台', task: '学习中' }
@@ -314,9 +666,8 @@
     const bubble = document.getElementById('bubble');
     const container = document.getElementById('game-container');
 
-    let currentArea = 'livingroom';
+    let currentArea = 'study';
 
-    // 获取容器尺寸计算实际像素位置
     function getPixelPosition(area) {
       const rect = container.getBoundingClientRect();
       return {
@@ -325,14 +676,12 @@
       };
     }
 
-    // 根据时间决定位置
     function updateStatus() {
       const hour = new Date().getHours();
       const minute = new Date().getMinutes();
       
       let newArea = 'livingroom';
       
-      // 定时任务时间（7:00-8:30, 10:00-10:30, 12:00-12:30, 18:00-18:30）
       if ((hour === 7 || hour === 8) && minute < 35) {
         newArea = 'kitchen';
       } else if (hour === 10 && minute < 35) {
@@ -355,13 +704,12 @@
       const area = AREAS[areaName];
       const pos = getPixelPosition(area);
       
-      // 添加随机偏移
       const offsetX = (Math.random() - 0.5) * 40;
       const offsetY = (Math.random() - 0.5) * 30;
       
       avatar.style.left = (pos.x + offsetX) + 'px';
       avatar.style.top = (pos.y + offsetY) + 'px';
-      statusBar.textContent = `风崽在${area.name} - ${area.task}`;
+      statusBar.textContent = `风崽在${area.name} — ${area.task}`;
       
       showBubble();
     }
@@ -381,25 +729,21 @@
       }, 3000);
     }
 
-    // 初始化
     function init() {
       const area = AREAS[currentArea];
       const pos = getPixelPosition(area);
       avatar.style.left = pos.x + 'px';
       avatar.style.top = pos.y + 'px';
-      statusBar.textContent = `风崽在${area.name} - ${area.task}`;
+      statusBar.textContent = `风崽在${area.name} — ${area.task}`;
       
-      // 窗口大小改变时重新计算位置
       window.addEventListener('resize', () => {
         moveToArea(currentArea);
       });
       
-      // 定时更新
-      setInterval(updateStatus, 30000); // 每30秒检查一次
+      setInterval(updateStatus, 30000);
       setTimeout(showBubble, 2000);
     }
 
-    // 等待图片加载
     window.addEventListener('load', init);
   </script>
 </body>
