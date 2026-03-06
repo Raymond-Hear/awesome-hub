@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reddit 精选 | 龙虾工作台</title>
-  <meta name="description" content="Reddit 精选内容 - 产品管理、创业、AI相关讨论">
+  <meta name="description" content="Reddit 精选内容 - AI、创业、产品相关热门讨论">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -28,224 +28,36 @@
       --radius-lg: 28px;
       --radius-xl: 32px;
     }
-    
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--background);
-      color: var(--on-surface);
-      line-height: 1.6;
-    }
-    
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--outline-variant);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      text-decoration: none;
-    }
-    
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--primary-container);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .nav-links a {
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius-lg);
-      color: var(--on-surface-variant);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    
-    .nav-links a:hover, .nav-links a.active {
-      background: var(--secondary-container);
-      color: var(--on-surface);
-    }
-    
-    .main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-    
-    .page-header {
-      margin-bottom: 2rem;
-    }
-    
-    .page-header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      margin-bottom: 0.5rem;
-    }
-    
-    .page-header p {
-      color: var(--on-surface-variant);
-    }
-    
-    .update-time {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--primary-container);
-      border-radius: var(--radius-lg);
-      font-size: 0.9rem;
-      color: var(--on-primary-container);
-      margin-top: 1rem;
-    }
-    
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-    
-    .section-card {
-      background: var(--surface);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-    }
-    
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 1.5rem;
-      background: var(--primary-container);
-      border-bottom: 1px solid var(--outline-variant);
-    }
-    
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--on-primary-container);
-    }
-    
-    .section-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--primary);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-    
-    .section-badge {
-      font-size: 0.75rem;
-      padding: 0.35rem 0.75rem;
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      color: var(--on-surface-variant);
-    }
-    
-    .section-content {
-      padding: 1rem;
-    }
-    
-    .article-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    
-    .article-item {
-      display: block;
-      padding: 1rem;
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-      border: 1px solid transparent;
-    }
-    
-    .article-item:hover {
-      background: var(--surface-variant);
-      border-color: var(--outline-variant);
-    }
-    
-    .article-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--on-surface);
-      margin-bottom: 0.4rem;
-      line-height: 1.4;
-    }
-    
-    .article-summary {
-      font-size: 0.85rem;
-      color: var(--on-surface-variant);
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-    
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--on-surface-variant);
-    }
-    
-    .article-tag {
-      padding: 0.15rem 0.5rem;
-      background: var(--secondary-container);
-      border-radius: var(--radius-sm);
-      font-size: 0.7rem;
-      font-weight: 500;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 3rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 1px solid var(--outline-variant);
-    }
-    
-    .footer p {
-      color: var(--on-surface-variant);
-      font-size: 0.9rem;
-    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--background); color: var(--on-surface); line-height: 1.6; }
+    .header { background: var(--surface); border-bottom: 1px solid var(--outline-variant); position: sticky; top: 0; z-index: 100; }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: var(--on-surface); text-decoration: none; }
+    .logo-icon { width: 44px; height: 44px; background: var(--primary-container); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 0.5rem; }
+    .nav-links a { padding: 0.6rem 1rem; border-radius: var(--radius-lg); color: var(--on-surface-variant); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--secondary-container); color: var(--on-surface); }
+    .main { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; color: var(--on-surface); margin-bottom: 0.5rem; }
+    .page-header p { color: var(--on-surface-variant); }
+    .update-time { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--primary-container); border-radius: var(--radius-lg); font-size: 0.9rem; color: var(--on-primary-container); margin-top: 1rem; }
+    .content-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    .section-card { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); overflow: hidden; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; background: var(--primary-container); border-bottom: 1px solid var(--outline-variant); }
+    .section-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; font-weight: 600; color: var(--on-primary-container); }
+    .section-icon { width: 36px; height: 36px; background: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .section-badge { font-size: 0.75rem; padding: 0.35rem 0.75rem; background: var(--surface); border-radius: var(--radius-lg); color: var(--on-surface-variant); }
+    .section-content { padding: 1rem; }
+    .article-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .article-item { display: block; padding: 1rem; border-radius: var(--radius-md); text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
+    .article-item:hover { background: var(--surface-variant); border-color: var(--outline-variant); }
+    .article-title { font-size: 0.95rem; font-weight: 600; color: var(--on-surface); margin-bottom: 0.4rem; line-height: 1.4; }
+    .article-summary { font-size: 0.85rem; color: var(--on-surface-variant); margin-bottom: 0.5rem; line-height: 1.5; }
+    .article-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--on-surface-variant); }
+    .article-tag { padding: 0.15rem 0.5rem; background: var(--secondary-container); border-radius: var(--radius-sm); font-size: 0.7rem; font-weight: 500; }
+    .footer { text-align: center; padding: 3rem 1.5rem; margin-top: 2rem; border-top: 1px solid var(--outline-variant); }
+    .footer p { color: var(--on-surface-variant); font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -267,112 +79,128 @@
 
   <main class="main">
     <div class="page-header">
-      <h1>🔴 Reddit 精选</h1>
-      <p>Reddit 上与聆风相关的精选讨论</p>
+      <h1>📰 Reddit 精选</h1>
+      <p>AI、创业、产品相关热门讨论社区</p>
       <div class="update-time">
         <span>🕐</span>
-        <span>每日 08:00 更新 · 2026年3月6日</span>
+        <span>每日 09:00 更新 · 2026年3月6日</span>
       </div>
     </div>
 
     <div class="content-grid">
-      <!-- 创业讨论 -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">
-            <div class="section-icon">🚀</div>
-            <span>创业讨论</span>
-          </div>
-          <span class="section-badge">3 条更新</span>
-        </div>
-        <div class="section-content">
-          <div class="article-list">
-            <a href="https://codecondo.com/entrepreneur-skill-2025/" target="_blank" class="article-item">
-              <div class="article-title">2025 年创业者必备技能：情绪韧性建设</div>
-              <div class="article-summary">培养成长型思维，将失败视为实验；通过正念冥想管理压力；建立支持网络，连接 X #Entrepreneurship 或 Reddit r/Entrepreneur 社区获取同行建议。</div>
-              <div class="article-meta">
-                <span class="article-tag">创业技能</span>
-                <span>CodeCondo · 心理建设</span>
-              </div>
-            </a>
-            <a href="https://fintechdailyinfo.com/international-entrepreneur-rule-news-2025-will-the-u-s-finally-embrace-startup-visas/" target="_blank" class="article-item">
-              <div class="article-title">国际创业者规则 2025 更新：美国创业签证新动向</div>
-              <div class="article-summary">DHS 更新 IER 规则，调整投资和收入门槛。合格创业者可在美国停留最多 30 个月（2.5年），可续期。需拥有至少 10% 股份，证明快速增长潜力。</div>
-              <div class="article-meta">
-                <span class="article-tag">政策</span>
-                <span>FinTech Daily · 签证</span>
-              </div>
-            </a>
-            <div class="article-item">
-              <div class="article-title">创业加速器：THE WORKS 2025 项目开启报名</div>
-              <div class="article-summary">针对早期软件技术和科技赋能公司的终极加速器。包括 SaaS、MedTech、FinTech、物流、通信、项目管理、营销、研究、信息技术等领域。</div>
-              <div class="article-meta">
-                <span class="article-tag">加速器</span>
-                <span>Knoxville EC · 创业</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 产品管理 -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">
-            <div class="section-icon">📊</div>
-            <span>产品管理</span>
-          </div>
-          <span class="section-badge">2 条更新</span>
-        </div>
-        <div class="section-content">
-          <div class="article-list">
-            <div class="article-item">
-              <div class="article-title">Skims CEO Emma Grede 的产品管理哲学</div>
-              <div class="article-summary">"我像管理军事基地一样管理我的家和公司。" 每天 5:30 起床，在 Slack 消息和会议之前赢得属于自己的时间。纪律带来清晰，清晰驱动战略。</div>
-              <div class="article-meta">
-                <span class="article-tag">产品管理</span>
-                <span>Level Up Mag · 领导力</span>
-              </div>
-            </div>
-            <div class="article-item">
-              <div class="article-title">创业者时间管理：每周 50 小时工作制</div>
-              <div class="article-summary">优先自我关怀确保心理耐力，每周工作不超过 50 小时，保持规律锻炼和睡眠。使用 Trello 或 Asana 等工具简化任务，为韧性建设腾出心理空间。</div>
-              <div class="article-meta">
-                <span class="article-tag">效率</span>
-                <span>创业技巧 · 时间管理</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI 与科技 -->
+      <!-- AI 工具 & 技术 -->
       <div class="section-card">
         <div class="section-header">
           <div class="section-title">
             <div class="section-icon">🤖</div>
-            <span>AI 与科技</span>
+            <span>AI 工具 & 技术</span>
           </div>
-          <span class="section-badge">2 条更新</span>
+          <span class="section-badge">4 个社区</span>
         </div>
         <div class="section-content">
           <div class="article-list">
-            <div class="article-item">
-              <div class="article-title">AI 接管内容创作：2025 创作者经济的双刃剑</div>
-              <div class="article-summary">AI 影响者如 Granny Spill、Xania Monet 崛起，但也引发 MrBeast、iShowSpeed 等创作者的焦虑。YouTube 推出 Ask Studio 分析频道表现，Meta 发布 Vibes AI 视频流。</div>
+            <a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" class="article-item">
+              <div class="article-title">r/ClaudeAI</div>
+              <div class="article-summary">Claude AI 用户社区，讨论 Claude 使用技巧、新功能发布、性能对比。热门话题包括 Claude 3.5 新功能、Claude vs ChatGPT 对比分析。</div>
+              <div class="article-meta">
+                <span class="article-tag">AI工具</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/Anthropic/" target="_blank" class="article-item">
+              <div class="article-title">r/Anthropic</div>
+              <div class="article-summary">Anthropic 官方社区，讨论 Claude 背后的公司、AI 安全、Constitutional AI。关注 Anthropic 最新研究和产品发布。</div>
+              <div class="article-meta">
+                <span class="article-tag">AI公司</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/PromptEngineering/" target="_blank" class="article-item">
+              <div class="article-title">r/PromptEngineering</div>
+              <div class="article-summary">提示工程社区，分享最佳实践、提示词技巧、框架方法论。热门内容包括 2025 年最佳提示词框架、链式思考技巧。</div>
+              <div class="article-meta">
+                <span class="article-tag">提示工程</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/notebooklm/" target="_blank" class="article-item">
+              <div class="article-title">r/notebooklm</div>
+              <div class="article-summary">Google NotebookLM 用户社区，分享使用技巧、案例展示。NotebookLM 被称为"最被低估的 AI 工具"，结合了 ChatGPT 和 Perplexity 的最佳特性。</div>
+              <div class="article-meta">
+                <span class="article-tag">AI工具</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 创业 & 产品 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">🚀</div>
+            <span>创业 & 产品</span>
+          </div>
+          <span class="section-badge">3 个社区</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://www.reddit.com/r/SideProject/" target="_blank" class="article-item">
+              <div class="article-title">r/SideProject</div>
+              <div class="article-summary">副业项目社区，分享 side project 开发历程、获客策略、变现经验。热门话题包括副业转全职成功案例、免费工具获客策略。</div>
+              <div class="article-meta">
+                <span class="article-tag">副业项目</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/Entrepreneur/" target="_blank" class="article-item">
+              <div class="article-title">r/Entrepreneur>
+              <div class="article-summary">创业者社区，讨论创业想法、商业模式、团队建设。热门内容包括独立开发者真实收入分享、2025 年商业机会讨论。</div>
+              <div class="article-meta">
+                <span class="article-tag">创业</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/marketing/" target="_blank" class="article-item">
+              <div class="article-title">r/marketing</div>
+              <div class="article-summary">营销社区，分享营销策略、渠道分析、案例研究。热门话题包括 2025 年最有效的营销策略、Reddit 营销指南。</div>
+              <div class="article-meta">
+                <span class="article-tag">营销</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 科技 & 趋势 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">💡</div>
+            <span>科技 & 趋势</span>
+          </div>
+          <span class="section-badge">2 个社区</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://www.reddit.com/r/google/" target="_blank" class="article-item">
+              <div class="article-title">r/google</div>
+              <div class="article-summary">Google 产品讨论社区，关注 Google AI、搜索、Workspace 等产品的最新动态。热门话题包括 Google Search 质量讨论、NotebookLM 功能更新。</div>
+              <div class="article-meta">
+                <span class="article-tag">科技</span>
+                <span>点击进入社区 →</span>
+              </div>
+            </a>
+            <a href="https://www.reddit.com/r/singularity/" target="_blank" class="article-item">
+              <div class="article-title">r/singularity</div>
+              <div class="article-summary">技术奇点讨论社区，关注 AI 发展、AGI 预测、未来技术趋势。讨论 Claude 泄露信息、新模型发布等前沿话题。</div>
               <div class="article-meta">
                 <span class="article-tag">AI趋势</span>
-                <span>The Wrap · 创作者经济</span>
+                <span>点击进入社区 →</span>
               </div>
-            </div>
-            <div class="article-item">
-              <div class="article-title">无肥皂护肤：MIT 毕业生创办的 1000 万美元创业公司</div>
-              <div class="article-summary">Bare Method 使用生物相容性清洁成分，模仿皮肤天然脂质平衡。最近完成 320 万美元种子轮融资，与皮肤科医生合作进行临床试验。</div>
-              <div class="article-meta">
-                <span class="article-tag">创业案例</span>
-                <span>Level Up Mag · DTC品牌</span>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>X 精选 | 龙虾工作台</title>
-  <meta name="description" content="X/Twitter 精选内容 - AI创作者经济、产品管理、创业相关">
+  <meta name="description" content="X/Twitter 精选动态 - AI、创业、产品领域大咖最新推文">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -28,224 +28,36 @@
       --radius-lg: 28px;
       --radius-xl: 32px;
     }
-    
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--background);
-      color: var(--on-surface);
-      line-height: 1.6;
-    }
-    
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--outline-variant);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      text-decoration: none;
-    }
-    
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--primary-container);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .nav-links a {
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius-lg);
-      color: var(--on-surface-variant);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    
-    .nav-links a:hover, .nav-links a.active {
-      background: var(--secondary-container);
-      color: var(--on-surface);
-    }
-    
-    .main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
-    
-    .page-header {
-      margin-bottom: 2rem;
-    }
-    
-    .page-header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--on-surface);
-      margin-bottom: 0.5rem;
-    }
-    
-    .page-header p {
-      color: var(--on-surface-variant);
-    }
-    
-    .update-time {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: var(--primary-container);
-      border-radius: var(--radius-lg);
-      font-size: 0.9rem;
-      color: var(--on-primary-container);
-      margin-top: 1rem;
-    }
-    
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-    
-    .section-card {
-      background: var(--surface);
-      border: 1px solid var(--outline-variant);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-    }
-    
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 1.5rem;
-      background: var(--primary-container);
-      border-bottom: 1px solid var(--outline-variant);
-    }
-    
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--on-primary-container);
-    }
-    
-    .section-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--primary);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-    }
-    
-    .section-badge {
-      font-size: 0.75rem;
-      padding: 0.35rem 0.75rem;
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      color: var(--on-surface-variant);
-    }
-    
-    .section-content {
-      padding: 1rem;
-    }
-    
-    .article-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    
-    .article-item {
-      display: block;
-      padding: 1rem;
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s;
-      border: 1px solid transparent;
-    }
-    
-    .article-item:hover {
-      background: var(--surface-variant);
-      border-color: var(--outline-variant);
-    }
-    
-    .article-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--on-surface);
-      margin-bottom: 0.4rem;
-      line-height: 1.4;
-    }
-    
-    .article-summary {
-      font-size: 0.85rem;
-      color: var(--on-surface-variant);
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-    
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--on-surface-variant);
-    }
-    
-    .article-tag {
-      padding: 0.15rem 0.5rem;
-      background: var(--secondary-container);
-      border-radius: var(--radius-sm);
-      font-size: 0.7rem;
-      font-weight: 500;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 3rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 1px solid var(--outline-variant);
-    }
-    
-    .footer p {
-      color: var(--on-surface-variant);
-      font-size: 0.9rem;
-    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--background); color: var(--on-surface); line-height: 1.6; }
+    .header { background: var(--surface); border-bottom: 1px solid var(--outline-variant); position: sticky; top: 0; z-index: 100; }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 700; color: var(--on-surface); text-decoration: none; }
+    .logo-icon { width: 44px; height: 44px; background: var(--primary-container); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 0.5rem; }
+    .nav-links a { padding: 0.6rem 1rem; border-radius: var(--radius-lg); color: var(--on-surface-variant); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--secondary-container); color: var(--on-surface); }
+    .main { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; color: var(--on-surface); margin-bottom: 0.5rem; }
+    .page-header p { color: var(--on-surface-variant); }
+    .update-time { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--primary-container); border-radius: var(--radius-lg); font-size: 0.9rem; color: var(--on-primary-container); margin-top: 1rem; }
+    .content-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+    .section-card { background: var(--surface); border: 1px solid var(--outline-variant); border-radius: var(--radius-xl); overflow: hidden; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; background: var(--primary-container); border-bottom: 1px solid var(--outline-variant); }
+    .section-title { display: flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; font-weight: 600; color: var(--on-primary-container); }
+    .section-icon { width: 36px; height: 36px; background: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .section-badge { font-size: 0.75rem; padding: 0.35rem 0.75rem; background: var(--surface); border-radius: var(--radius-lg); color: var(--on-surface-variant); }
+    .section-content { padding: 1rem; }
+    .article-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .article-item { display: block; padding: 1rem; border-radius: var(--radius-md); text-decoration: none; color: inherit; transition: all 0.2s; border: 1px solid transparent; }
+    .article-item:hover { background: var(--surface-variant); border-color: var(--outline-variant); }
+    .article-title { font-size: 0.95rem; font-weight: 600; color: var(--on-surface); margin-bottom: 0.4rem; line-height: 1.4; }
+    .article-summary { font-size: 0.85rem; color: var(--on-surface-variant); margin-bottom: 0.5rem; line-height: 1.5; }
+    .article-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--on-surface-variant); }
+    .article-tag { padding: 0.15rem 0.5rem; background: var(--secondary-container); border-radius: var(--radius-sm); font-size: 0.7rem; font-weight: 500; }
+    .footer { text-align: center; padding: 3rem 1.5rem; margin-top: 2rem; border-top: 1px solid var(--outline-variant); }
+    .footer p { color: var(--on-surface-variant); font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -268,111 +80,135 @@
   <main class="main">
     <div class="page-header">
       <h1>🐦 X 精选</h1>
-      <p>X/Twitter 上与聆风相关的精选内容</p>
+      <p>AI、创业、产品领域大咖最新动态</p>
       <div class="update-time">
         <span>🕐</span>
-        <span>每日 08:00 更新 · 2026年3月6日</span>
+        <span>每日 08:30 更新 · 2026年3月6日</span>
       </div>
     </div>
 
     <div class="content-grid">
-      <!-- AI 创作者经济 -->
+      <!-- AI 技术大咖 -->
       <div class="section-card">
         <div class="section-header">
           <div class="section-title">
-            <div class="section-icon">🎨</div>
-            <span>AI 创作者经济</span>
+            <div class="section-icon">🤖</div>
+            <span>AI 技术大咖</span>
           </div>
-          <span class="section-badge">5 条更新</span>
+          <span class="section-badge">4 位达人</span>
         </div>
         <div class="section-content">
           <div class="article-list">
-            <a href="https://digiday.com/marketing/the-four-trends-to-watch-in-the-2025-creator-economy/" target="_blank" class="article-item">
-              <div class="article-title">2025 创作者经济四大趋势：AI 策略成型</div>
-              <div class="article-summary">生成式 AI 头像、创作者工作流程、内容创作流程都在快速演变。创作者正在成为自己的媒体公司，88% 的创作者已创建产品或服务。</div>
+            <a href="https://x.com/karpathy" target="_blank" class="article-item">
+              <div class="article-title">Andrej Karpathy @karpathy</div>
+              <div class="article-summary">前 Tesla AI 总监，OpenAI 创始成员。专注 LLM 训练、神经网络架构、AI 教育。近期分享关于 transformer 架构演进和 LLM 训练的最新思考。</div>
               <div class="article-meta">
-                <span class="article-tag">AI创作</span>
-                <span>Digiday · 2025趋势</span>
+                <span class="article-tag">AI技术</span>
+                <span>点击查看最新动态 →</span>
               </div>
             </a>
-            <a href="https://sosoon.io/trends-x-twitter-in-2025-what-works-to-engage-your-audience/" target="_blank" class="article-item">
-              <div class="article-title">X 平台 2025 趋势：Super Follows 付费订阅增长</div>
-              <div class="article-summary">35% 的活跃创作者使用 Super Follows 功能，长文发布可达 25,000 字符，视频内容算法优先推荐。</div>
+            <a href="https://x.com/sama" target="_blank" class="article-item">
+              <div class="article-title">Sam Altman @sama</div>
+              <div class="article-summary">OpenAI CEO。分享 AGI 发展、创业心得、科技趋势。近期讨论 2025 年 AI 应用爆发和 AGI 时间线预测。</div>
               <div class="article-meta">
-                <span class="article-tag">平台趋势</span>
-                <span>Sosoon · X平台</span>
+                <span class="article-tag">AI/创业</span>
+                <span>点击查看最新动态 →</span>
               </div>
             </a>
-            <a href="https://tweetfull.com/blog/twitter-marketing-trends-whats-shaping-the-platform-in-2025/" target="_blank" class="article-item">
-              <div class="article-title">Twitter 营销趋势：创作者营销将达 325.5 亿美元</div>
-              <div class="article-summary">视频内容占 80% 用户会话，AI 驱动广告个性化 ROI 达 2.7 美元，长内容日曝光 30 亿次。</div>
+            <a href="https://x.com/ylecun" target="_blank" class="article-item">
+              <div class="article-title">Yann LeCun @ylecun</div>
+              <div class="article-summary">Meta AI 首席科学家，图灵奖得主。专注深度学习、自监督学习、AI 安全。经常分享对 LLM 局限性和未来 AI 架构的观点。</div>
               <div class="article-meta">
-                <span class="article-tag">营销数据</span>
-                <span>Tweetfull · 创作者收入</span>
+                <span class="article-tag">AI研究</span>
+                <span>点击查看最新动态 →</span>
+              </div>
+            </a>
+            <a href="https://x.com/lexfridman" target="_blank" class="article-item">
+              <div class="article-title">Lex Fridman @lexfridman</div>
+              <div class="article-summary">MIT 研究员，知名播客主持人。深度访谈 AI 领域顶尖人物，分享对技术、哲学、人性的思考。</div>
+              <div class="article-meta">
+                <span class="article-tag">AI/访谈</span>
+                <span>点击查看最新动态 →</span>
               </div>
             </a>
           </div>
         </div>
       </div>
 
-      <!-- 产品管理 -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-title">
-            <div class="section-icon">📊</div>
-            <span>产品管理</span>
-          </div>
-          <span class="section-badge">3 条更新</span>
-        </div>
-        <div class="section-content">
-          <div class="article-list">
-            <div class="article-item">
-              <div class="article-title">X Spaces 直播讨论功能持续升温</div>
-              <div class="article-summary">实时音频/视频讨论成为主流，适合产品演示、用户访谈、行业辩论。营销机构可用 X Spaces 分享策略并回答潜在客户问题。</div>
-              <div class="article-meta">
-                <span class="article-tag">产品工具</span>
-                <span>X平台 · 直播</span>
-              </div>
-            </div>
-            <div class="article-item">
-              <div class="article-title">长文内容复兴：线程格式提升 60% 停留时间</div>
-              <div class="article-summary">线程（Threads）仍是吸引注意力的最佳格式之一，允许讲故事、深入探讨主题或提供分步建议。相比单条推文，线程增加 60% 内容停留时间。</div>
-              <div class="article-meta">
-                <span class="article-tag">内容策略</span>
-                <span>Twitter · 用户参与</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 创业相关 -->
+      <!-- 创业 & 产品 -->
       <div class="section-card">
         <div class="section-header">
           <div class="section-title">
             <div class="section-icon">🚀</div>
-            <span>创业相关</span>
+            <span>创业 & 产品</span>
           </div>
-          <span class="section-badge">4 条更新</span>
+          <span class="section-badge">4 位达人</span>
         </div>
         <div class="section-content">
           <div class="article-list">
-            <div class="article-item">
-              <div class="article-title">创作者创业：从个人品牌到媒体公司</div>
-              <div class="article-summary">创作者正在雇佣人才代表、建立自己的团队、推出自己的品牌。专业创作者配备经理的比例从 20% 增至 75%。</div>
+            <a href="https://x.com/naval" target="_blank" class="article-item">
+              <div class="article-title">Naval @naval</div>
+              <div class="article-summary">AngelList 创始人，知名投资人。分享财富创造、人生哲学、阅读推荐。经典语录："Specific knowledge is knowledge you cannot be trained for"</div>
               <div class="article-meta">
-                <span class="article-tag">创作者创业</span>
-                <span>行业趋势</span>
+                <span class="article-tag">思维/哲学</span>
+                <span>点击查看最新动态 →</span>
               </div>
-            </div>
-            <div class="article-item">
-              <div class="article-title">X 变现门槛降低：500 粉丝即可开始盈利</div>
-              <div class="article-summary">新资格：500+ 粉丝、90 天内 500 万曝光、X Premium 状态、Stripe 账户。广告收入分成现已全球开放，无需等待名单。</div>
+            </a>
+            <a href="https://x.com/paulg" target="_blank" class="article-item">
+              <div class="article-title">Paul Graham @paulg</div>
+              <div class="article-summary">Y Combinator 创始人，知名创业导师。分享创业建议、编程思考、技术趋势。近期讨论早期团队建设和 co-founder 选择。</div>
               <div class="article-meta">
-                <span class="article-tag">变现</span>
-                <span>X平台 · 创业</span>
+                <span class="article-tag">创业/编程</span>
+                <span>点击查看最新动态 →</span>
               </div>
-            </div>
+            </a>
+            <a href="https://x.com/lennysan" target="_blank" class="article-item">
+              <div class="article-title">Lenny Rachitsky @lennysan</div>
+              <div class="article-summary">前 Airbnb 产品负责人，知名产品管理 newsletter 作者。分享产品管理趋势、增长策略、团队建设。订阅用户超 50 万。</div>
+              <div class="article-meta">
+                <span class="article-tag">产品管理</span>
+                <span>点击查看最新动态 →</span>
+              </div>
+            </a>
+            <a href="https://x.com/andrewchen" target="_blank" class="article-item">
+              <div class="article-title">Andrew Chen @andrewchen</div>
+              <div class="article-summary">a16z 合伙人，前 Uber 增长负责人。专注增长策略、产品市场匹配、创业投资。分享大量实战案例和数据分析。</div>
+              <div class="article-meta">
+                <span class="article-tag">增长/投资</span>
+                <span>点击查看最新动态 →</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 个人成长 -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-icon">💡</div>
+            <span>个人成长</span>
+          </div>
+          <span class="section-badge">2 位达人</span>
+        </div>
+        <div class="section-content">
+          <div class="article-list">
+            <a href="https://x.com/thedankoe" target="_blank" class="article-item">
+              <div class="article-title">Dan Koe @thedankoe</div>
+              <div class="article-summary">数字游民，个人成长领域创作者。分享生产力系统、数字游民生活方式、内容创作策略。强调"慢生产力"和深度工作。</div>
+              <div class="article-meta">
+                <span class="article-tag">个人成长</span>
+                <span>点击查看最新动态 →</span>
+              </div>
+            </a>
+            <a href="https://x.com/david_perell" target="_blank" class="article-item">
+              <div class="article-title">David Perell @david_perell</div>
+              <div class="article-summary">写作教练，"写作在线"课程创始人。分享写作技巧、内容创作、个人品牌建设。强调写作是思维的杠杆。</div>
+              <div class="article-meta">
+                <span class="article-tag">写作/创作</span>
+                <span>点击查看最新动态 →</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>
